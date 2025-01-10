@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class EmployeWindow {
+public class EmployeWindow extends VBox {
     private ListView<Employe> employeListView;
 
     public EmployeWindow() {
@@ -41,13 +41,32 @@ public class EmployeWindow {
                 }
             }
         });
+    
+        // 创建按钮
+        Button createButton = new Button("Create");
+        Button deleteButton = new Button("Delete");
 
-        window = new VBox();
-        window.getChildren().add(new Text("Employe Window"));
-        // 添加更多组件和布局
+        createButton.setOnAction(e -> createEmploye());
+        deleteButton.setOnAction(e -> deleteEmploye());
+
+        // 布局设置
+        ScrollPane scrollPane = new ScrollPane(employeListView);
+        scrollPane.setFitToWidth(true);
+
+        HBox buttonBox = new HBox(10, createButton, deleteButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        this.setSpacing(10);
+        this.setPadding(new Insets(10));
+        this.getChildren().addAll(new Text("Employes"), scrollPane, buttonBox);
     }
 
-    public VBox getWindow() {
-        return window;
+    public void createEmploye() {
+        // 实现新建的逻辑
+
+    }
+
+    public void deleteEmploye() {
+        // 实现删除的逻辑
     }
 }
