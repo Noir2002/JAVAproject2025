@@ -10,17 +10,23 @@ public class Sidebar {
 
     public Sidebar() {
         sidebar = new VBox();
-        Button employeButton = new Button("Employe");
-        Button projetButton = new Button("Projet");
-        Button calenderButton = new Button("Calender");
-        Button reportButton = new Button("Report");
+        Button employeButton = createButton("Employe");
+        Button projetButton = createButton("Projet");
+        Button calenderButton = createButton("Calender");
+        Button reportButton = createButton("Report");
 
-        employeButton.setOnAction(e -> navigateTo(new EmployeWindow().getWindow()));
+        employeButton.setOnAction(e -> navigateTo(new EmployeWindow()));
         projetButton.setOnAction(e -> navigateTo(new ProjetWindow()));
         calenderButton.setOnAction(e -> navigateTo(new CalenderWindow()));
         reportButton.setOnAction(e -> navigateTo(new ReportWindow().getWindow()));
 
         sidebar.getChildren().addAll(employeButton, projetButton, calenderButton, reportButton);
+    }
+
+    private Button createButton(String text) {
+        Button button = new Button(text);
+        button.setMinWidth(150); // 设置按钮的最小宽度
+        return button;
     }
 
     public VBox getSidebar() {

@@ -49,8 +49,8 @@ public class ProjetWindow extends VBox {
         HBox buttonBox = new HBox(10, createButton, editButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        HBox mainLayout = new HBox(10, scrollPane, detailLayout);
-        mainLayout.setAlignment(Pos.CENTER_LEFT);
+        HBox mainLayout = new HBox(scrollPane, detailLayout);
+        mainLayout.setAlignment(Pos.CENTER);
 
         this.setSpacing(10);
         this.setPadding(new Insets(10));

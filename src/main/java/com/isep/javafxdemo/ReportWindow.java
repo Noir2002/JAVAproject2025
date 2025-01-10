@@ -1,18 +1,133 @@
 package com.isep.javafxdemo;
 
-import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
-public class ReportWindow {
-    private VBox window;
+public class ReportWindow extends VBox {
+    private ListView<Projet> projectListView;
+    private VBox detailLayout;
+    private Projet selectedProject;
 
     public ReportWindow() {
-        window = new VBox();
-        window.getChildren().add(new Text("Report Window"));
-        // 添加更多组件和布局
+        projectListView = new ListView<>();
+        detailLayout = new VBox(10);
+        detailLayout.setPadding(new Insets(10));
+
+        // 示例项目
+        new Projet(1, "Project A", "2025-12-31 23:59:59", 10000);
+        new Projet(2, "Project B", "2025-11-30 23:59:59", 15000);
+
+        // 设置项目列表视图
+        projectListView.getItems().addAll(Projet.getProjets());
+        projectListView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Projet project, boolean empty) {
+                super.updateItem(project, empty);
+                if (empty || project == null) {
+                    setText(null);
+                } else {
+                    setText("ID: " + project.getId() + " - " + project.getNom());
+                }
+            }
+        });
+
+        projectListView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                selectedProject = projectListView.getSelectionModel().getSelectedItem();
+                if (selectedProject != null) {
+                    showProjectDetails(selectedProject);
+                }
+            }
+        });
+
+        // 创建导出按钮
+        Button exportButton = new Button("Exporter");
+        exportButton.setOnAction(e -> exportToPDF());
+
+        // 布局设置
+        ScrollPane projectScrollPane = new ScrollPane(projectListView);
+        projectScrollPane.setFitToWidth(true);
+        projectScrollPane.setMinWidth(300); // 设置最小宽度
+
+        ScrollPane detailScrollPane = new ScrollPane(detailLayout);
+        detailScrollPane.setFitToWidth(true);
+        detailScrollPane.setMinWidth(300); // 设置最小宽度
+
+        HBox mainLayout = new HBox(10, projectScrollPane, detailScrollPane);
+        mainLayout.setAlignment(Pos.CENTER_LEFT);
+
+        HBox buttonBox = new HBox(10, exportButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        this.setSpacing(10);
+        this.setPadding(new Insets(10));
+        this.getChildren().addAll(new Text("Projects"), mainLayout, buttonBox);
     }
 
-    public VBox getWindow() {
-        return window;
+    private void showProjectDetails(Projet project) {
+        detailLayout.getChildren().clear();
+
+        Label idLabel = new Label("ID: " + project.getId());
+        Label nameLabel = new Label("Name: " + project.getNom());
+        Label dateLimitLabel = new Label("Date Limit: " + project.getDateLimit());
+        Label budgetLabel = new Label("Budget: " + project.getBudget());
+        Label realCostLabel = new Label("Real Cost: " + project.getRealCost());
+
+        detailLayout.getChildren().addAll(idLabel, nameLabel, dateLimitLabel, budgetLabel, realCostLabel);
+    }
+
+    private void exportToPDF() {
+        if (selectedProject == null) {
+            showAlert("No Project Selected", "Please select a project to export.");
+            return;
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file != null) {
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                Document document = new Document();
+                PdfWriter.getInstance(document, fos);
+                document.open();
+                document.add(new Paragraph("Project Details"));
+                document.add(new Paragraph("ID: " + selectedProject.getId()));
+                document.add(new Paragraph("Name: " + selectedProject.getNom()));
+                document.add(new Paragraph("Date Limit: " + selectedProject.getDateLimit()));
+                document.add(new Paragraph("Budget: " + selectedProject.getBudget()));
+                document.add(new Paragraph("Real Cost: " + selectedProject.getRealCost()));
+                document.close();
+                showAlert("Export Successful", "Project details have been exported to PDF.");
+            } catch (DocumentException | IOException e) {
+                showAlert("Export Failed", "An error occurred while exporting the project details.");
+            }
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public Node getWindow() {
+        return this;
     }
 }
