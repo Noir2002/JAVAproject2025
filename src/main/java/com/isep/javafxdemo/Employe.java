@@ -24,6 +24,14 @@ public class Employe extends Personne {
         }
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public ArrayList<Projet> getHistoriqueProjets() {
         for (Projet projet : Projet.getProjets()) {
             if (projet.getMembresProjet().contains(this) && !historiqueProjets.contains(projet)) {
