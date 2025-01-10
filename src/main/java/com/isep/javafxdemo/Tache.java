@@ -16,28 +16,28 @@ public class Tache {
     private String commentaires;
 
     public Tache(int id, String nom, String dateLimit, double budget, int priority, String descriptions) {
-        int i = 1;
+        int i = 0;
         for (Tache tache : Kanban.getTaches()) {
             if (id != tache.getId()) {
                 i++;
-                if (i == Kanban.getTaches().size()) {
-                    this.id = id;
-                    this.nom = nom;
-                    this.dateLimit = dateLimit;
-                    this.budget = budget;
-                    this.realCost = 0;
-                    this.priority = priority;
-                    this.category = "a faire";
-                    this.membresTache = new ArrayList<Employe>();
-                    this.descriptions = descriptions;
-                    this.commentaires = "";
-                    // add tache to Kanban
-                    Kanban.moveTache(this);
-                    i = 1;
-                }else {
-                System.out.println("Tache deja existante");
-                }
             }
+        }
+        if (i == Kanban.getTaches().size()) {
+            this.id = id;
+            this.nom = nom;
+            this.dateLimit = dateLimit;
+            this.budget = budget;
+            this.realCost = 0;
+            this.priority = priority;
+            this.category = "a faire";
+            this.membresTache = new ArrayList<Employe>();
+            this.descriptions = descriptions;
+            this.commentaires = "";
+            // add tache to Kanban
+            Kanban.moveTache(this);
+            i = 1;
+        }else {
+        System.out.println("Tache deja existante");
         }
     }
 

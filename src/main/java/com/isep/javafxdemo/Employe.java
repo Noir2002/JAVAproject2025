@@ -7,26 +7,25 @@ public class Employe {
     private int id;
     private String nom;
     private String role;
-    private static ArrayList<Employe> employes = new ArrayList<>();
+    private static ArrayList<Employe> employes = new ArrayList<>(0);
 
     public Employe(int id, String nom, String role) {
         if (employes == null) {
             employes = new ArrayList<Employe>();
         }
-        int i = 1;
+        int i = 0;
         for (Employe employe : employes) {
             if (id != employe.getId()) {
                 i++;
-                if (i == employes.size()) {
-                    this.id = id;
-                    this.nom = nom;
-                    this.role = role;
-                    employes.add(this);
-                    i = 1;
-                }else {
-                System.out.println("Employe deja existant");
-                }
             }
+        }
+        if (i == employes.size()) {
+            this.id = id;
+            this.nom = nom;
+            this.role = role;
+            employes.add(this);
+        }else {
+        System.out.println("Employe deja existant");
         }
     }
 
