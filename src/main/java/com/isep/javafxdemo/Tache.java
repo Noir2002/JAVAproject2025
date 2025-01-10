@@ -82,7 +82,17 @@ public class Tache {
     }
 
     public void setId(int id) {
-        this.id = id;
+        int i = 0;
+        for (Tache tache : Kanban.getTaches()) {
+            if (id != tache.getId()) {
+                i++;
+            }
+        }
+        if (i == Kanban.getTaches().size()) {
+            this.id = id;
+        }else {
+        System.out.println("Id deja existant");
+        }
     }
 
     public void setNom(String nom) {

@@ -67,7 +67,17 @@ public class Projet {
     }
 
     public void setId(int id) {
-        this.id = id;
+        int i = 0;
+        for (Projet projet : projets) {
+            if (id != projet.getId()) {
+                i++;
+            }
+        }
+        if (i == projets.size()) {
+            this.id = id;
+        }else {
+        System.out.println("Id deja existant");
+        }
     }
 
     public void setNom(String nom) {

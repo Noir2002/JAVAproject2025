@@ -42,7 +42,17 @@ public class Employe {
     }
 
     public void setId(int id) {
-        this.id = id;
+        int i = 0;
+        for (Employe employe : employes) {
+            if (id != employe.getId()) {
+                i++;
+            }
+        }
+        if (i == employes.size()) {
+            this.id = id;
+        }else {
+        System.out.println("Id deja existant");
+        }
     }
 
     public void setNom(String nom) {
