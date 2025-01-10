@@ -10,10 +10,19 @@ public class Employe {
     private static ArrayList<Employe> employes = new ArrayList<>();
 
     public Employe(int id, String nom, String role) {
-        this.id = id;
-        this.nom = nom;
-        this.role = role;
-        employes.add(this);
+        if (employes == null) {
+            employes = new ArrayList<Employe>();
+        }
+        for (Employe employe : employes) {
+            if (id != employe.getId()) {
+                this.id = id;
+                this.nom = nom;
+                this.role = role;
+                employes.add(this);
+            } else {
+                System.out.println("Employe deja existant");
+            }
+        }
     }
 
     public int getId() {
