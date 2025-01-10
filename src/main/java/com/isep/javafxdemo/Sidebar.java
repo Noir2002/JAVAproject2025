@@ -1,5 +1,4 @@
 package com.isep.javafxdemo;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
@@ -17,7 +16,7 @@ public class Sidebar {
         Button reportButton = new Button("Report");
 
         employeButton.setOnAction(e -> navigateTo(new EmployeWindow().getWindow()));
-        projetButton.setOnAction(e -> navigateTo(new ProjetWindow().getWindow()));
+        projetButton.setOnAction(e -> navigateTo(new ProjetWindow()));
         calenderButton.setOnAction(e -> navigateTo(new CalenderWindow()));
         reportButton.setOnAction(e -> navigateTo(new ReportWindow().getWindow()));
 
