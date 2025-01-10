@@ -41,7 +41,7 @@ public class EmployeWindow extends VBox {
                 }
             }
         });
-    
+
         // 创建按钮
         Button createButton = new Button("Create");
         Button deleteButton = new Button("Delete");
@@ -63,11 +63,17 @@ public class EmployeWindow extends VBox {
 
     public void createEmploye() {
         // 实现新建的逻辑
-
+        System.out.println("Create Employe");
     }
 
     public void deleteEmploye() {
         // 实现删除的逻辑
+        Employe selectedEmploye = employeListView.getSelectionModel().getSelectedItem();
+        if (selectedEmploye != null) {
+            Employe.deleteEmploye(selectedEmploye);
+            employeListView.getItems().remove(selectedEmploye);
+            System.out.println("Delete Employe: " + selectedEmploye.getNom());
+        }
     }
 
     public EmployeWindow getWindow() {
