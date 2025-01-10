@@ -8,9 +8,12 @@ import javafx.scene.text.Text;
 
 public class ProjetWindow extends VBox {
     private ListView<Projet> projectListView;
+    private VBox detailLayout;
 
     public ProjetWindow() {
         projectListView = new ListView<>();
+        detailLayout = new VBox(10);
+        detailLayout.setPadding(new Insets(10));
 
         // 示例项目
         new Projet(1, "Project A", "2025-12-31 23:59:59", 10000);
@@ -26,15 +29,6 @@ public class ProjetWindow extends VBox {
                     setText(null);
                 } else {
                     setText(project.getNom());
-                }
-            }
-        });
-
-        projectListView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                Projet selectedProject = projectListView.getSelectionModel().getSelectedItem();
-                if (selectedProject != null) {
-                    new ProjectDetailWindow(selectedProject).show();
                 }
             }
         });
@@ -55,26 +49,28 @@ public class ProjetWindow extends VBox {
         HBox buttonBox = new HBox(10, createButton, editButton, deleteButton);
         buttonBox.setAlignment(Pos.CENTER);
 
+        HBox mainLayout = new HBox(10, scrollPane, detailLayout);
+        mainLayout.setAlignment(Pos.CENTER_LEFT);
+
         this.setSpacing(10);
         this.setPadding(new Insets(10));
-        this.getChildren().addAll(new Text("Projects"), scrollPane, buttonBox);
+        this.getChildren().addAll(new Text("Projects"), mainLayout, buttonBox);
     }
 
     private void createProject() {
-        // 实现新建项目的逻辑
-        System.out.println("Create Project");
+        ProjectDetailWindow projectDetailWindow = new ProjectDetailWindow(new Projet(0, "", "", 0), true);
+        projectDetailWindow.show();
     }
 
     private void editProject() {
-        // 实现编辑项目的逻辑
         Projet selectedProject = projectListView.getSelectionModel().getSelectedItem();
         if (selectedProject != null) {
-            System.out.println("Edit Project: " + selectedProject.getNom());
+            ProjectDetailWindow projectDetailWindow = new ProjectDetailWindow(selectedProject, false);
+            projectDetailWindow.show();
         }
     }
 
     private void deleteProject() {
-        // 实现删除项目的逻辑
         Projet selectedProject = projectListView.getSelectionModel().getSelectedItem();
         if (selectedProject != null) {
             Projet.deleteProjet(selectedProject);
