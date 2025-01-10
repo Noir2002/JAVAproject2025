@@ -1,6 +1,7 @@
 module com.isep.javafxdemo {
     requires javafx.controls;
     requires javafx.fxml;
+    requires itextpdf;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
