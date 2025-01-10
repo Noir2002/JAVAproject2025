@@ -28,7 +28,7 @@ public class EmployeWindow extends VBox {
                 if (empty || employe == null) {
                     setText(null);
                 } else {
-                    setText(null);
+                    //setText(null);
                     setText(employe.getNom());
                 }
             }

@@ -13,14 +13,19 @@ public class Employe {
         if (employes == null) {
             employes = new ArrayList<Employe>();
         }
+        int i = 1;
         for (Employe employe : employes) {
             if (id != employe.getId()) {
-                this.id = id;
-                this.nom = nom;
-                this.role = role;
-                employes.add(this);
-            } else {
+                i++;
+                if (i == employes.size()) {
+                    this.id = id;
+                    this.nom = nom;
+                    this.role = role;
+                    employes.add(this);
+                    i = 1;
+                }else {
                 System.out.println("Employe deja existant");
+                }
             }
         }
     }

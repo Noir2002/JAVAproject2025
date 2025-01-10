@@ -17,18 +17,23 @@ public class Projet {
         if (projets == null) {
             projets = new ArrayList<Projet>();
         }
+        int i = 1;
         for (Projet projet : projets) {
             if (id != projet.getId()) {
-                this.id = id;
-                this.nom = nom;
-                this.dateLimit = dateLimit;
-                this.budget = budget;
-                this.realCost = 0;
-                this.membresProjet = new ArrayList<Employe>();
-                this.taches = new ArrayList<Tache>();
-                projets.add(this);
-            } else {
+                i++;
+                if (i == projets.size()) {
+                    this.id = id;
+                    this.nom = nom;
+                    this.dateLimit = dateLimit;
+                    this.budget = budget;
+                    this.realCost = 0;
+                    this.membresProjet = new ArrayList<Employe>();
+                    this.taches = new ArrayList<Tache>();
+                    projets.add(this);
+                    i = 1;
+                }else {
                 System.out.println("Projet deja existant");
+                }
             }
         }
     }
