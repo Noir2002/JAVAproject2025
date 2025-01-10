@@ -30,7 +30,7 @@ public class WelcomeWindow extends Application {
         layout.setBackground(new Background(backgroundImage));
 
         Text welcomeText = new Text("Welcome to Collaborative Task Management Application");
-        welcomeText.setFont(Font.font("Arial", 24)); // 设置字体和大小
+        welcomeText.setFont(Font.font("Georgia", 24)); // 设置字体和大小
         welcomeText.setFill(javafx.scene.paint.Color.RED); // 设置颜色
         welcomeText.setTextAlignment(TextAlignment.CENTER); // 设置文本对齐方式
         Button enterButton = new Button("Enter");

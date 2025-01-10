@@ -25,7 +25,8 @@ public class Sidebar {
 
     private Button createButton(String text) {
         Button button = new Button(text);
-        button.setMinWidth(150); // 设置按钮的最小宽度
+        button.setMinWidth(150);
+        button.setMinHeight(150);// 设置按钮的最小宽度
         return button;
     }
 
