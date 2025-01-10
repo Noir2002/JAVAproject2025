@@ -1,6 +1,5 @@
 package com.isep.javafxdemo;
 
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -15,12 +14,12 @@ public class MainApp extends Application {
 
         // 默认显示Employe窗口
         EmployeWindow employeWindow = new EmployeWindow();
-        root.setCenter(employeWindow.getWindow());
+        root.setCenter(employeWindow);
 
         sidebar.setNavigationHandler((window) -> root.setCenter(window));
 
         Scene scene = new Scene(root, 800, 600);
-        primaryStage.setTitle("Collaborative task management application");
+        primaryStage.setTitle("Collaborative Task Management Application");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
