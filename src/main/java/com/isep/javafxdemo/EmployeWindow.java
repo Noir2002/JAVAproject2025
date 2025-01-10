@@ -69,4 +69,8 @@ public class EmployeWindow extends VBox {
     public void deleteEmploye() {
         // 实现删除的逻辑
     }
+
+    public EmployeWindow getWindow() {
+        return this;
+    }
 }
