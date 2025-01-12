@@ -98,6 +98,11 @@ public class ReportWindow extends VBox {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save PDF");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        // 设置默认文件名，例如 "Project_ProjectA.pdf"
+        String defaultFileName = "Project_" + selectedProject.getNom().replaceAll("\\s+", "_") + ".pdf";
+        fileChooser.setInitialFileName(defaultFileName);
+        
         File file = fileChooser.showSaveDialog(new Stage());
 
         if (file != null) {
