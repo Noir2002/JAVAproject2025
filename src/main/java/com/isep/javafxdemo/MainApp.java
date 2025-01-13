@@ -6,9 +6,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
+    private static BorderPane root;
+
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         Sidebar sidebar = new Sidebar();
         root.setLeft(sidebar.getSidebar());
 
@@ -23,6 +25,10 @@ public class MainApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    public static BorderPane getRoot()  {
+            return root;
+        }
 
     public static void main(String[] args) {
         launch(args);

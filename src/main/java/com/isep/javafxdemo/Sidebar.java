@@ -38,7 +38,7 @@ public class Sidebar {
         this.navigationHandler = handler;
     }
 
-    private void navigateTo(javafx.scene.Node window) {
+    public void navigateTo(javafx.scene.Node window) {
         if (navigationHandler != null) {
             navigationHandler.accept(window);
         }

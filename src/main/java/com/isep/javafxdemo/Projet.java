@@ -14,9 +14,7 @@ public class Projet {
     private static ArrayList<Projet> projets;
 
     public Projet(int id, String nom, String dateLimit, double budget) {
-        if (projets == null) {
-            projets = new ArrayList<Projet>();
-        }
+        setProjets();
         int i = 0;
         for (Projet projet : projets) {
             if (id != projet.getId()) {
@@ -35,6 +33,12 @@ public class Projet {
             i = 1;
         }else {
         System.out.println("Projet deja existant");
+        }
+    }
+
+    public static void setProjets(){
+        if (projets == null) {
+            projets = new ArrayList<Projet>();
         }
     }
 

@@ -16,13 +16,6 @@ public class EmployeWindow extends VBox {
     public EmployeWindow() {
         employeListView = new ListView<>();
 
-        // 示例员工
-        Employe m = new Employe(1, "Employe A", "manager");
-        //System.out.println("m");
-        Employe m2 = new Employe(2, "Employe B", "manager");
-        //System.out.println("m2");
-        //System.out.println(Employe.getEmployes());
-
         // 设置员工列表视图
         employeListView.getItems().addAll(Employe.getEmployes());
         employeListView.setCellFactory(param -> new ListCell<>() {
@@ -68,6 +61,8 @@ public class EmployeWindow extends VBox {
 
     public void createEmploye() {
         // 实现新建的逻辑
+        Employe creatEmploye = new Employe(-1, "New Employe", "New Role");
+        new EmployeDetailWindow(creatEmploye).show();
         System.out.println("Create Employe");
     }
 
