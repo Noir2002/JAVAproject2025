@@ -7,6 +7,18 @@ public class Kanban {
     private static ArrayList<Tache> TachesEnCours;
     private static ArrayList<Tache> TachesTermine;
 
+    public static void setKanbanList() {
+        if (TachesAFaire == null) {
+            TachesAFaire = new ArrayList<Tache>();
+        }
+        if (TachesEnCours == null) {
+            TachesEnCours = new ArrayList<Tache>();
+        }
+        if (TachesTermine == null) {
+            TachesTermine = new ArrayList<Tache>();
+        }
+    }
+
     public static ArrayList<Tache> getTachesAFaire() {
         return TachesAFaire;
     }

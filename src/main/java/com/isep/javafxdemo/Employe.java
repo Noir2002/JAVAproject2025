@@ -10,9 +10,7 @@ public class Employe {
     private static ArrayList<Employe> employes = new ArrayList<>(0);
 
     public Employe(int id, String nom, String role) {
-        if (employes == null) {
-            employes = new ArrayList<Employe>();
-        }
+        setEmployes();
         int i = 0;
         for (Employe employe : employes) {
             if (id != employe.getId()) {
@@ -26,6 +24,12 @@ public class Employe {
             employes.add(this);
         }else {
         System.out.println("Employe deja existant");
+        }
+    }
+
+    public static void setEmployes(){
+        if (employes == null) {
+            employes = new ArrayList<Employe>();
         }
     }
 
