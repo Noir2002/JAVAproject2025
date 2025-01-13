@@ -12,12 +12,12 @@ public class Sidebar {
         sidebar = new VBox();
         Button employeButton = createButton("Employe");
         Button projetButton = createButton("Projet");
-        Button calenderButton = createButton("Calender");
+        Button calenderButton = createButton("Calendar");
         Button reportButton = createButton("Report");
 
         employeButton.setOnAction(e -> navigateTo(new EmployeWindow()));
         projetButton.setOnAction(e -> navigateTo(new ProjetWindow()));
-        calenderButton.setOnAction(e -> navigateTo(new CalenderWindow()));
+        calenderButton.setOnAction(e -> navigateTo(new CalendarWindow()));
         reportButton.setOnAction(e -> navigateTo(new ReportWindow().getWindow()));
 
         sidebar.getChildren().addAll(employeButton, projetButton, calenderButton, reportButton);
