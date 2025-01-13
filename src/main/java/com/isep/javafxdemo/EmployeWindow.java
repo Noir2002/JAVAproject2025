@@ -64,6 +64,8 @@ public class EmployeWindow extends VBox {
         Employe creatEmploye = new Employe(-1, "New Employe", "New Role");
         new EmployeDetailWindow(creatEmploye).show();
         System.out.println("Create Employe");
+        EmployeWindow employeWindow = new EmployeWindow();
+        MainApp.getRoot().setCenter(employeWindow);
     }
 
     public void deleteEmploye() {
