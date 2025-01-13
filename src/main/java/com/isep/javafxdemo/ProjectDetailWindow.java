@@ -13,6 +13,7 @@ public class ProjectDetailWindow {
     private TextField nameField;
     private TextField budgetField;
     private TextField realCostField;
+    private TextField dateLimitField;
     private ListView<Employe> membersListView;
     private ListView<Tache> tasksListView;
     private boolean isNewProject;
@@ -30,6 +31,7 @@ public class ProjectDetailWindow {
         nameField = new TextField(isNewProject ? "" : project.getNom());
         budgetField = new TextField(isNewProject ? "" : String.valueOf(project.getBudget()));
         realCostField = new TextField(isNewProject ? "" : String.valueOf(project.getRealCost()));
+        dateLimitField = new TextField(isNewProject ? "" : project.getDateLimit());
 
         membersListView = new ListView<>();
         if (!isNewProject) {
@@ -59,6 +61,7 @@ public class ProjectDetailWindow {
                 new Label("Name:"), nameField,
                 new Label("Budget:"), budgetField,
                 new Label("Real Cost:"), realCostField,
+                new Label("Date Limit:"), dateLimitField,
                 new Label("Members:"), membersListView, memberButtons,
                 new Label("Tasks:"), tasksListView, taskButtons,
                 saveButtonBox
@@ -119,6 +122,7 @@ public class ProjectDetailWindow {
             project.setNom(nameField.getText());
             project.setBudget(Double.parseDouble(budgetField.getText()));
             project.setRealCost(Double.parseDouble(realCostField.getText()));
+            project.setDateLimit(dateLimitField.getText());
             project.getMembresProjet().clear();
             project.getMembresProjet().addAll(membersListView.getItems());
             project.getTaches().clear();
@@ -126,6 +130,7 @@ public class ProjectDetailWindow {
         }
         System.out.println("Changes saved for project: " + project.getNom());
         stage.close();
+        MainApp.getRoot().setCenter(new ProjetWindow());  
     }
 
     public void show() {

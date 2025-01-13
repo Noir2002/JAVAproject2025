@@ -58,8 +58,15 @@ public class ProjetWindow extends VBox {
     }
 
     private void createProject() {
-        ProjectDetailWindow projectDetailWindow = new ProjectDetailWindow(new Projet(0, "", "", 0), true);
-        projectDetailWindow.show();
+        Projet creatProjet = new Projet(-1, "creatProjet", "yyyy-MM-dd HH:mm:ss", 10000);
+        new ProjectDetailWindow(creatProjet, true).show();
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getId() == -1) {
+                Projet.getProjets().remove(projet);
+                break;
+            }
+        }
+        MainApp.getRoot().setCenter(new ProjetWindow());
     }
 
     private void editProject() {
