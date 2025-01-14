@@ -15,7 +15,7 @@ public class Tache {
     private String descriptions;
     private String commentaires;
 
-    public Tache(int id, String nom, String dateLimit, double budget, int priority, String descriptions) {
+    public Tache(int id, String nom, String dateLimit, double budget, double realCost, int priority, String category, String descriptions, String commentaires) {
         int i = 0;
         for (Tache tache : Kanban.getTaches()) {
             if (id != tache.getId()) {
@@ -27,12 +27,12 @@ public class Tache {
             this.nom = nom;
             this.dateLimit = dateLimit;
             this.budget = budget;
-            this.realCost = 0;
+            this.realCost = realCost;
             this.priority = priority;
-            this.category = "a faire";
+            this.category = category;
             this.membresTache = new ArrayList<Employe>();
             this.descriptions = descriptions;
-            this.commentaires = "";
+            this.commentaires = commentaires;
             // add tache to Kanban
             Kanban.moveTache(this);
             i = 1;

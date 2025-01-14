@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -48,6 +49,12 @@ public class ProjectDetailWindow {
         // 初始化看板
         setupKanbanBoard();
 
+        // 添加任务和删除任务按钮
+        Button addTacheButton = new Button("Add Task");
+        Button deleteTacheButton = new Button("Delete Task");
+        HBox tacheButtons = new HBox(10, addTacheButton, deleteTacheButton);
+        tacheButtons.setAlignment(Pos.CENTER);
+
         // 保存按钮
         Button saveButton = new Button("Save");
         HBox saveButtonBox = new HBox(saveButton);
@@ -60,7 +67,7 @@ public class ProjectDetailWindow {
             new Label("Real Cost:"), realCostField,
             new Label("Date Limit:"), dateLimitField,
             new Label("Members:"), membersListView, memberButtons,
-            new Label("Kanban Board:"), kanbanBoard,
+            new Label("Kanban Board:"), kanbanBoard, tacheButtons,
             saveButtonBox
         );
 
@@ -70,6 +77,8 @@ public class ProjectDetailWindow {
         // 按钮事件绑定
         addMemberButton.setOnAction(e -> addMember());
         deleteMemberButton.setOnAction(e -> deleteMember());
+        addTacheButton.setOnAction(e -> addTache());
+        deleteTacheButton.setOnAction(e -> deleteTache());
         saveButton.setOnAction(e -> saveChanges());
     }
 
@@ -110,41 +119,46 @@ public class ProjectDetailWindow {
             if (event.getClickCount() == 2) {
                 Tache selectedTask = toDoList.getSelectionModel().getSelectedItem();
                 if (selectedTask != null) {
-                    selectedTask.setCategory("en cours");
-                    Kanban.moveTache(selectedTask);
-                    refreshKanbanBoard();
+                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask, this);
+                    tacheDetailWindow.show();
                 }
             }
         });
-
+    
         inProgressList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Tache selectedTask = inProgressList.getSelectionModel().getSelectedItem();
                 if (selectedTask != null) {
-                    selectedTask.setCategory("termine");
-                    Kanban.moveTache(selectedTask);
-                    refreshKanbanBoard();
+                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask, this);
+                    tacheDetailWindow.show();
                 }
             }
         });
-
+    
         doneList.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 Tache selectedTask = doneList.getSelectionModel().getSelectedItem();
                 if (selectedTask != null) {
-                    selectedTask.setCategory("a faire");
-                    Kanban.moveTache(selectedTask);
-                    refreshKanbanBoard();
+                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask, this);
+                    tacheDetailWindow.show();
                 }
             }
         });
     }
+    
 
-    private void refreshKanbanBoard() {
+    public void refreshKanbanBoard() {
+        // 清空当前看板
         kanbanBoard.getChildren().clear();
+    
+        // 重新设置看板内容
         setupKanbanBoard();
+        for(Tache tache : Kanban.getTaches()){
+            System.out.println("tache : ");
+            System.out.println(tache);
+        }
     }
-
+    
     private void addMember() {
         Stage addMemberStage = new Stage();
         addMemberStage.setTitle("Add Members");
@@ -181,6 +195,62 @@ public class ProjectDetailWindow {
         }
     }
 
+    private void addTache() {
+        // 打开 TacheDetailWindow 让用户创建任务
+        Tache newTache = new Tache(Kanban.getTaches().size() + 1, "", "", 0, 0, 1, "", "", "");
+        TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, newTache, this);
+        tacheDetailWindow.show();
+    
+        // 窗口关闭后检查是否需要添加到项目
+        tacheDetailWindow.getStage().setOnHiding(event -> {
+            if (newTache.getNom() != null && !newTache.getNom().isEmpty()) {
+                newTache.addTache(project);
+                refreshKanbanBoard();
+            }
+        });
+    }
+    
+    private void deleteTache() {
+        // 从看板中获取选中的任务
+        ListView<Tache> selectedListView = null;
+        for (Node node : kanbanBoard.getChildren()) {
+            if (node instanceof ListView) {
+                ListView<Tache> listView = (ListView<Tache>) node;
+                if (!listView.getSelectionModel().isEmpty()) {
+                    selectedListView = listView;
+                    break;
+                }
+            }
+        }
+    
+        if (selectedListView != null) {
+            Tache selectedTache = selectedListView.getSelectionModel().getSelectedItem();
+            if (selectedTache != null) {
+                // 确认删除
+                Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmDialog.setTitle("Delete Task");
+                confirmDialog.setHeaderText("Are you sure you want to delete this task?");
+                confirmDialog.setContentText("Task: " + selectedTache.getNom());
+    
+                confirmDialog.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        // 从项目和看板中删除任务
+                        selectedTache.deleteTache(selectedTache);
+                        refreshKanbanBoard();
+                    }
+                });
+            }
+        } else {
+            // 未选择任务时提示
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Task Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a task to delete from the Kanban board.");
+            alert.showAndWait();
+        }
+    }
+    
+
     private void saveChanges() {
         if (isNewProject) {
             project = new Projet(Projet.getProjets().size() + 1, nameField.getText(), dateLimitField.getText(), Double.parseDouble(budgetField.getText()));
@@ -195,6 +265,10 @@ public class ProjectDetailWindow {
         System.out.println("Changes saved for project: " + project.getNom());
         stage.close();
         MainApp.getRoot().setCenter(new ProjetWindow());
+    }
+
+    public Projet getProjet() {
+        return project;
     }
 
     public void show() {

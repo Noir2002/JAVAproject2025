@@ -1,2 +1,6 @@
 - setId的防重复
 
+-     private Projet A = new Projet(1, "Project A", "2025-12-31 23:59:59", 10000);
+    private Projet B = new Projet(2, "Project B", "2025-11-30 23:59:59", 15000);
+
+- addTache不了，Kanban刷新失败

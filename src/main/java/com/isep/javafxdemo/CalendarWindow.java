@@ -23,10 +23,6 @@ public class CalendarWindow extends VBox {
         currentYearMonth = YearMonth.now();
         projects = new HashMap<>();
 
-        // 示例项目
-        new Projet(1, "Project A", "2025-05-31 23:59:59", 10000);
-        new Projet(2, "Project B", "2025-06-15 23:59:59", 15000);
-
         // 将项目添加到日历中
         for (Projet project : Projet.getProjets()) {
             LocalDate deadline = LocalDate.parse(project.getDateLimit().substring(0, 10));

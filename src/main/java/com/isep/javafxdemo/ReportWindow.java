@@ -26,10 +26,6 @@ public class ReportWindow extends VBox {
         detailLayout = new VBox(10);
         detailLayout.setPadding(new Insets(10));
 
-        // 示例项目
-        new Projet(1, "Project A", "2025-12-31 23:59:59", 10000);
-        new Projet(2, "Project B", "2025-11-30 23:59:59", 15000);
-
         // 设置项目列表视图
         projectListView.getItems().addAll(Projet.getProjets());
         projectListView.setCellFactory(param -> new ListCell<>() {
@@ -48,7 +44,8 @@ public class ReportWindow extends VBox {
             if (event.getClickCount() == 1) {
                 selectedProject = projectListView.getSelectionModel().getSelectedItem();
                 if (selectedProject != null) {
-                    showProjectDetails(selectedProject);
+                    Reporter reporter = new Reporter();
+                    reporter.generateReport(selectedProject);
                 }
             }
         });
