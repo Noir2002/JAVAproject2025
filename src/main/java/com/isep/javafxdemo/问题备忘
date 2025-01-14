@@ -4,3 +4,5 @@
     private Projet B = new Projet(2, "Project B", "2025-11-30 23:59:59", 15000);
 
 - addTache不了，Kanban刷新失败
+
+- 所有setTaches方法都要改，会不更新到看板和projet

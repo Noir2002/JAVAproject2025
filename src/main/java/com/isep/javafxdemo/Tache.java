@@ -123,6 +123,14 @@ public class Tache {
             // update Kanban
             this.category = category;
             Kanban.moveTache(this);
+            // update Projet
+            for (Projet projet : Projet.getProjets()) {
+                if (projet.getTaches().contains(this)) {
+                    projet.deleteTache(this);
+                    projet.addTache(this);
+                    break;
+                }
+            }
         }
     }
 
