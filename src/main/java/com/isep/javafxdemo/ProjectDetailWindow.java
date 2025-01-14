@@ -201,9 +201,10 @@ public class ProjectDetailWindow {
         TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, newTache, this);
         tacheDetailWindow.show();
     
+        
         // 窗口关闭后检查是否需要添加到项目
         tacheDetailWindow.getStage().setOnHiding(event -> {
-            if (newTache.getNom() != null && !newTache.getNom().isEmpty()) {
+            if (newTache.getId() > 0) {
                 newTache.addTache(project);
                 refreshKanbanBoard();
             }

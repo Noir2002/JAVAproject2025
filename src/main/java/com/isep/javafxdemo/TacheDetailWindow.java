@@ -86,7 +86,7 @@ public class TacheDetailWindow {
         // 按钮事件绑定
         addMemberButton.setOnAction(e -> addMember());
         deleteMemberButton.setOnAction(e -> deleteMember());
-        saveButton.setOnAction(e -> saveChanges(projectDetailWindow));
+        saveButton.setOnAction(e -> saveChanges());
     }
 
     private boolean isNewTache(int id) {
@@ -134,10 +134,10 @@ public class TacheDetailWindow {
         }
     }
 
-    private void saveChanges(ProjectDetailWindow projectDetailWindow) {
-        Projet projet = projectDetailWindow.getProjet();
+    private void saveChanges() {
         if (isNewTache) {
             System.out.println("Creating new task...");
+            System.out.println("categoryComboBox.getValue(): " + categoryComboBox.getValue());
             tache = new Tache(
                 Integer.parseInt(idField.getText()),
                 nameField.getText(),
@@ -149,8 +149,6 @@ public class TacheDetailWindow {
                 descriptionArea.getText(),
                 commentArea.getText()
             );
-            System.out.println("addTache to projet: " + projet.getNom());
-            tache.addTache(projet);
         } else {
             System.out.println("Updating task...");
             tache.setId(Integer.parseInt(idField.getText()));
@@ -167,7 +165,6 @@ public class TacheDetailWindow {
         }
         System.out.println("Changes saved for task: " + tache.getNom());
         stage.close();
-        projectDetailWindow.refreshKanbanBoard();
     }
 
     private int generateUniqueId() {

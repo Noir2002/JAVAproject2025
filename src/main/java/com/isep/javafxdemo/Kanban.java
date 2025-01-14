@@ -50,6 +50,7 @@ public class Kanban {
                         }else if (TachesTermine.contains(tache)) {
                             TachesTermine.remove(tache);
                         }
+                        System.out.println("Tache ajoutee a la liste des taches a faire");
                     }else{
                     System.out.println("Tache deja existante dans la liste des taches a faire");
                     }
@@ -65,6 +66,7 @@ public class Kanban {
                         }else if (TachesTermine.contains(tache)) {
                             TachesTermine.remove(tache);
                         }
+                        System.out.println("Tache ajoutee a la liste des taches en cours");
                     }else{
                     System.out.println("Tache deja existante dans la liste des taches en cours");
                     }
@@ -79,6 +81,7 @@ public class Kanban {
                         }else if (TachesEnCours.contains(tache)) {
                             TachesEnCours.remove(tache);
                         }
+                        System.out.println("Tache ajoutee a la liste des taches termine");
                     }else{
                     System.out.println("Tache deja existante dans la liste des taches termine");
                     }

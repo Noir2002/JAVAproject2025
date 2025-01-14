@@ -163,11 +163,15 @@ public class Tache {
     }
 
     public void addTache(Projet projet) {
-        // add tache to projet
-        projet.addTache(this);
-
-        // add tache to Kanban
-        Kanban.moveTache(this);
+        for (Tache t : projet.getTaches()) {
+            if (t != this) {
+                projet.addTache(this);
+                // add tache to Kanban
+                Kanban.moveTache(this);
+            }else{
+                System.out.println("Tache deja ajoutee au projet");
+            }
+        }      
     }
 
     public void deleteTache(Tache tache) {
