@@ -1,20 +1,28 @@
 package com.isep.javafxdemo;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class ReportWindow extends VBox {
     private ListView<Projet> projectListView;
@@ -45,7 +53,8 @@ public class ReportWindow extends VBox {
                 selectedProject = projectListView.getSelectionModel().getSelectedItem();
                 if (selectedProject != null) {
                     Reporter reporter = new Reporter();
-                    reporter.generateReport(selectedProject);
+                    String report = reporter.generateReport(selectedProject);
+                    showProjectDetails(report);
                 }
             }
         });
@@ -74,16 +83,17 @@ public class ReportWindow extends VBox {
         this.getChildren().addAll(new Text("Projects"), mainLayout, buttonBox);
     }
 
-    private void showProjectDetails(Projet project) {
+    private void showProjectDetails(String report) {
         detailLayout.getChildren().clear();
-
+/* 
         Label idLabel = new Label("ID: " + project.getId());
         Label nameLabel = new Label("Name: " + project.getNom());
         Label dateLimitLabel = new Label("Date Limit: " + project.getDateLimit());
         Label budgetLabel = new Label("Budget: " + project.getBudget());
         Label realCostLabel = new Label("Real Cost: " + project.getRealCost());
-
-        detailLayout.getChildren().addAll(idLabel, nameLabel, dateLimitLabel, budgetLabel, realCostLabel);
+*/
+        Label reportLabel = new Label("Report: " + report);
+        detailLayout.getChildren().addAll(reportLabel);
     }
 
     private void exportToPDF() {

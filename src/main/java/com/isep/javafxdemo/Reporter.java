@@ -17,9 +17,9 @@ public class Reporter {
 
     public String generateReport(Projet projet) {
         this.report = projet.toString();
-        for (Tache tache : projet.getTaches()) {
+        /*for (Tache tache : projet.getTaches()) {
             this.report += '\n' +tache.toString();
-        }
+        }*/
         System.out.println(this.report);
         return this.report;
     }
