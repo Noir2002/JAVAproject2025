@@ -2,16 +2,24 @@ package com.isep.javafxdemo;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 public class ProjectDetailWindow {
     private Stage stage;
     private Projet project;
+    private TextField idField;
     private TextField nameField;
     private TextField budgetField;
     private TextField realCostField;
@@ -19,10 +27,13 @@ public class ProjectDetailWindow {
     private ListView<Employe> membersListView;
     private GridPane kanbanBoard;
     private boolean isNewProject;
+    private HBox saveButtonBox;
 
     public ProjectDetailWindow(Projet project, boolean isNewProject) {
         this.project = project;
+        System.out.println("this projet is : " + project);
         this.isNewProject = isNewProject;
+        System.out.println("isNewProject ? : " + this.isNewProject);
         stage = new Stage();
         stage.setTitle(isNewProject ? "Create Project" : "Edit Project");
 
@@ -30,7 +41,7 @@ public class ProjectDetailWindow {
         layout.setPadding(new Insets(10));
 
         // 基本信息输入框
-        Label idLabel = new Label("ID: " + (isNewProject ? "New" : project.getId()));
+        idField = new TextField(isNewProject ? String.valueOf(Projet.getProjets().size() + 1) : String.valueOf(project.getId()));
         nameField = new TextField(isNewProject ? "" : project.getNom());
         budgetField = new TextField(isNewProject ? "" : String.valueOf(project.getBudget()));
         realCostField = new TextField(isNewProject ? "" : String.valueOf(project.getRealCost()));
@@ -57,11 +68,11 @@ public class ProjectDetailWindow {
 
         // 保存按钮
         Button saveButton = new Button("Save");
-        HBox saveButtonBox = new HBox(saveButton);
+        this.saveButtonBox = new HBox(saveButton);
         saveButtonBox.setAlignment(Pos.TOP_RIGHT);
 
         layout.getChildren().addAll(
-            idLabel,
+            new Label("ID:"), idField,
             new Label("Name:"), nameField,
             new Label("Budget:"), budgetField,
             new Label("Real Cost:"), realCostField,
@@ -104,8 +115,11 @@ public class ProjectDetailWindow {
         ListView<Tache> doneList = new ListView<>();
 
         toDoList.getItems().addAll(Kanban.getTachesAFaire());
+        System.out.println("taches a faire : " + Kanban.getTachesAFaire());
         inProgressList.getItems().addAll(Kanban.getTachesEnCours());
+        System.out.println("taches en cours : " + Kanban.getTachesEnCours());
         doneList.getItems().addAll(Kanban.getTachesTermine());
+        System.out.println("taches termine : " + Kanban.getTachesTermine());
 
         kanbanBoard.add(toDoList, 0, 1);
         kanbanBoard.add(inProgressList, 1, 1);
@@ -147,7 +161,8 @@ public class ProjectDetailWindow {
     }
     
 
-    public void refreshKanbanBoard() {
+    public void refresh(Projet project) {
+        /*
         // 清空当前看板
         kanbanBoard.getChildren().clear();
     
@@ -157,6 +172,17 @@ public class ProjectDetailWindow {
             System.out.println("tache : ");
             System.out.println(tache);
         }
+
+        // 将新看板添加到旧屏幕
+        VBox layout = (VBox) stage.getScene().getRoot();
+        layout.getChildren().remove(5);
+        layout.getChildren().remove(6);
+        layout.getChildren().add(kanbanBoard);
+        layout.getChildren().add(saveButtonBox); */
+
+        this.stage.close();
+        ProjectDetailWindow projectDetailWindow = new ProjectDetailWindow(project, false);
+        projectDetailWindow.show();
     }
     
     private void addMember() {
@@ -201,14 +227,14 @@ public class ProjectDetailWindow {
         TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, newTache, this);
         tacheDetailWindow.show();
     
-        
+        /*
         // 窗口关闭后检查是否需要添加到项目
         tacheDetailWindow.getStage().setOnHiding(event -> {
             if (newTache.getId() > 0) {
                 newTache.addTache(project);
                 refreshKanbanBoard();
             }
-        });
+        }); */
     }
     
     private void deleteTache() {
@@ -237,7 +263,7 @@ public class ProjectDetailWindow {
                     if (response == ButtonType.OK) {
                         // 从项目和看板中删除任务
                         selectedTache.deleteTache(selectedTache);
-                        refreshKanbanBoard();
+                        refresh(project);
                     }
                 });
             }
@@ -266,10 +292,6 @@ public class ProjectDetailWindow {
         System.out.println("Changes saved for project: " + project.getNom());
         stage.close();
         MainApp.getRoot().setCenter(new ProjetWindow());
-    }
-
-    public Projet getProjet() {
-        return project;
     }
 
     public void show() {

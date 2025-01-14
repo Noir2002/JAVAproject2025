@@ -28,10 +28,12 @@ public class TacheDetailWindow {
     private ComboBox<String> categoryComboBox;
     private ListView<Employe> membersListView;
     private boolean isNewTache;
+    private Projet projet;
 
     public TacheDetailWindow(Projet projet, Tache tache, ProjectDetailWindow projectDetailWindow) {
         this.isNewTache = isNewTache(tache.getId());
         this.tache = tache;
+        this.projet = projet;
         stage = new Stage();
         stage.setTitle(isNewTache ? "Create Task" : "Edit Task");
 
@@ -92,7 +94,7 @@ public class TacheDetailWindow {
         // 按钮事件绑定
         addMemberButton.setOnAction(e -> addMember());
         deleteMemberButton.setOnAction(e -> deleteMember());
-        saveButton.setOnAction(e -> saveChanges());
+        saveButton.setOnAction(e -> saveChanges(projectDetailWindow));
     }
 
     private boolean isNewTache(int id) {
@@ -140,7 +142,7 @@ public class TacheDetailWindow {
         }
     }
 
-    private void saveChanges() {
+    private void saveChanges(ProjectDetailWindow projectDetailWindow) {
         if (isNewTache) {
             System.out.println("Creating new task...");
             System.out.println("categoryComboBox.getValue(): " + categoryComboBox.getValue());
@@ -155,6 +157,7 @@ public class TacheDetailWindow {
                 descriptionArea.getText(),
                 commentArea.getText()
             );
+            projet.addTache(tache);
         } else {
             System.out.println("Updating task...");
             tache.setId(Integer.parseInt(idField.getText()));
@@ -171,6 +174,7 @@ public class TacheDetailWindow {
         }
         System.out.println("Changes saved for task: " + tache.getNom());
         stage.close();
+        projectDetailWindow.refresh(projet);
     }
 
     private int generateUniqueId() {

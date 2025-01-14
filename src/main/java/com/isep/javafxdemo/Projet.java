@@ -122,13 +122,16 @@ public class Projet {
     }
 
     public void addTache(Tache tache) {
+        /*
         for (Tache t : taches) {
-            if (t != tache) {
+            if (t.getId() != tache.getId()) {
                 taches.add(tache);
+                System.out.println("Tache ajoutee au projet");
             }else{
                 System.out.println("Tache deja ajoutee au projet");
             }
-        }
+        } */
+        taches.add(tache);
     }
 
     public void deleteTache(Tache tache) {

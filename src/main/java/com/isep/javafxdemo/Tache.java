@@ -16,6 +16,7 @@ public class Tache {
     private String commentaires;
 
     public Tache(int id, String nom, String dateLimit, double budget, double realCost, int priority, String category, String descriptions, String commentaires) {
+        Kanban.setKanbanList();
         int i = 0;
         for (Tache tache : Kanban.getTaches()) {
             if (id != tache.getId()) {
@@ -35,6 +36,7 @@ public class Tache {
             this.commentaires = commentaires;
             // add tache to Kanban
             Kanban.moveTache(this);
+            System.out.println("add tache to Kanban");
             i = 1;
         }else {
         System.out.println("Tache deja existante");
@@ -219,11 +221,39 @@ public class Tache {
     }
 
     public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.descriptions = descriptions;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.descriptions = descriptions;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void setCommentaires(String commentaires) {
-        this.commentaires = commentaires;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.commentaires = commentaires;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.commentaires = commentaires;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void addMembre(Employe employe) {
