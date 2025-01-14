@@ -31,9 +31,9 @@ public class ProjectDetailWindow {
 
     public ProjectDetailWindow(Projet project, boolean isNewProject) {
         this.project = project;
-        System.out.println("this projet is : " + project);
+        //System.out.println("this projet is : " + project);
         this.isNewProject = isNewProject;
-        System.out.println("isNewProject ? : " + this.isNewProject);
+        //System.out.println("isNewProject ? : " + this.isNewProject);
         stage = new Stage();
         stage.setTitle(isNewProject ? "Create Project" : "Edit Project");
 
@@ -280,8 +280,9 @@ public class ProjectDetailWindow {
 
     private void saveChanges() {
         if (isNewProject) {
-            project = new Projet(Projet.getProjets().size() + 1, nameField.getText(), dateLimitField.getText(), Double.parseDouble(budgetField.getText()));
+            project = new Projet(Integer.parseInt(idField.getText()), nameField.getText(), dateLimitField.getText(), Double.parseDouble(budgetField.getText()));
         } else {
+            project.setId(Integer.parseInt(idField.getText()));
             project.setNom(nameField.getText());
             project.setBudget(Double.parseDouble(budgetField.getText()));
             project.setRealCost(Double.parseDouble(realCostField.getText()));

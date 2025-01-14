@@ -42,6 +42,9 @@ public class Kanban {
     public static void moveTache(Tache tache) {
         switch (tache.getCategory()) {
             case "a faire":
+                if (TachesAFaire.isEmpty())  {
+                    TachesAFaire.add(tache);
+                }
                 for (Tache t : TachesAFaire) {
                     if (t != tache) {
                         TachesAFaire.add(tache);
@@ -63,6 +66,9 @@ public class Kanban {
                 
                 break;
             case "en cours":
+                if (TachesEnCours.isEmpty())  {
+                    TachesEnCours.add(tache);
+                }
                 for (Tache t : TachesEnCours) {
                     if (t != tache) {
                         TachesEnCours.add(tache);
@@ -83,6 +89,9 @@ public class Kanban {
                 }
                 break;
             case "termine":
+                if (TachesTermine.isEmpty())  {
+                    TachesTermine.add(tache);
+                }
                 for (Tache t : TachesTermine) {
                     if (t != tache) {
                         TachesTermine.add(tache);
