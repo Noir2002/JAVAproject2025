@@ -162,24 +162,6 @@ public class ProjectDetailWindow {
     
 
     public void refresh(Projet project) {
-        /*
-        // 清空当前看板
-        kanbanBoard.getChildren().clear();
-    
-        // 重新设置看板内容
-        setupKanbanBoard();
-        for(Tache tache : Kanban.getTaches()){
-            System.out.println("tache : ");
-            System.out.println(tache);
-        }
-
-        // 将新看板添加到旧屏幕
-        VBox layout = (VBox) stage.getScene().getRoot();
-        layout.getChildren().remove(5);
-        layout.getChildren().remove(6);
-        layout.getChildren().add(kanbanBoard);
-        layout.getChildren().add(saveButtonBox); */
-
         this.stage.close();
         ProjectDetailWindow projectDetailWindow = new ProjectDetailWindow(project, false);
         projectDetailWindow.show();
