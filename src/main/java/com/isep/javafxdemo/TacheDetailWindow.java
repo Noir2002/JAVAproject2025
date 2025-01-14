@@ -3,10 +3,16 @@ package com.isep.javafxdemo;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 public class TacheDetailWindow {
     private Stage stage;
@@ -138,7 +144,7 @@ public class TacheDetailWindow {
         if (isNewTache) {
             System.out.println("Creating new task...");
             System.out.println("categoryComboBox.getValue(): " + categoryComboBox.getValue());
-            tache = new Tache(
+            this.tache = new Tache(
                 Integer.parseInt(idField.getText()),
                 nameField.getText(),
                 dateLimitField.getText(),

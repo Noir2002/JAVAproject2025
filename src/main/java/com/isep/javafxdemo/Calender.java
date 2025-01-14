@@ -1,18 +1,27 @@
 package com.isep.javafxdemo;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.scene.text.Text;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Calender extends Application {
     private YearMonth currentYearMonth;
@@ -176,7 +185,7 @@ public class Calender extends Application {
     private void showEventDialog(LocalDate date) {
         // 显示/编辑特定日期事件的对话框
         Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle(date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日")) + " 的事件");
+        dialog.setTitle(date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " 的事件");
 
         TextArea eventText = new TextArea(events.getOrDefault(date, ""));
         eventText.setPrefRowCount(3);
