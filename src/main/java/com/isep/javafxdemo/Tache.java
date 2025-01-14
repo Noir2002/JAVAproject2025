@@ -89,30 +89,114 @@ public class Tache {
             }
         }
         if (i == Kanban.getTaches().size()) {
-            this.id = id;
+            // update Kanban
+            for (Tache tache : Kanban.getTaches()) {
+                if (tache == this) {
+                    tache.id = id;
+                }
+            }
+            // update Projet
+            for (Projet projet : Projet.getProjets()) {
+                if (projet.getTaches().contains(this)) {
+                    projet.deleteTache(this);
+                    this.id = id;
+                    projet.addTache(this);
+                    break;
+                }
+            }
         }else {
         System.out.println("Id deja existant");
         }
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.nom = nom;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.nom = nom;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void setDateLimit(String dateLimit) {
-        this.dateLimit = dateLimit;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.dateLimit = dateLimit;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.dateLimit = dateLimit;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void setBudget(double budget) {
-        this.budget = budget;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.budget = budget;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.budget = budget;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void setRealCost(double realCost) {
-        this.realCost = realCost;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.realCost = realCost;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.realCost = realCost;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void setPriority(int priority) {
-        this.priority = priority;
+        // update Kanban
+        for (Tache tache : Kanban.getTaches()) {
+            if (tache == this) {
+                tache.priority = priority;
+            }
+        }
+        // update Projet
+        for (Projet projet : Projet.getProjets()) {
+            if (projet.getTaches().contains(this)) {
+                projet.deleteTache(this);
+                this.priority = priority;
+                projet.addTache(this);
+                break;
+            }
+        }
     }
 
     public void setCategory(String category) {

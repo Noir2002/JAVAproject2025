@@ -45,10 +45,15 @@ public class Kanban {
                 for (Tache t : TachesAFaire) {
                     if (t != tache) {
                         TachesAFaire.add(tache);
-                        if (TachesEnCours.contains(tache)) {
-                            TachesEnCours.remove(tache);
-                        }else if (TachesTermine.contains(tache)) {
-                            TachesTermine.remove(tache);
+                        for(Tache tEnCours : TachesEnCours){
+                            if(tEnCours.getId() == tache.getId()){
+                                TachesEnCours.remove(tache);
+                            }
+                        }
+                        for(Tache tTermine : TachesTermine){
+                            if(tTermine.getId() == tache.getId()){
+                                TachesTermine.remove(tache);
+                            }
                         }
                         System.out.println("Tache ajoutee a la liste des taches a faire");
                     }else{
@@ -61,10 +66,15 @@ public class Kanban {
                 for (Tache t : TachesEnCours) {
                     if (t != tache) {
                         TachesEnCours.add(tache);
-                        if (TachesAFaire.contains(tache)) {
-                            TachesAFaire.remove(tache);
-                        }else if (TachesTermine.contains(tache)) {
-                            TachesTermine.remove(tache);
+                        for(Tache tAFaire : TachesAFaire){
+                            if(tAFaire.getId() == tache.getId()){
+                                TachesAFaire.remove(tache);
+                            }
+                        }
+                        for(Tache tTermine : TachesTermine){
+                            if(tTermine.getId() == tache.getId()){
+                                TachesTermine.remove(tache);
+                            }
                         }
                         System.out.println("Tache ajoutee a la liste des taches en cours");
                     }else{
@@ -76,10 +86,15 @@ public class Kanban {
                 for (Tache t : TachesTermine) {
                     if (t != tache) {
                         TachesTermine.add(tache);
-                        if (TachesAFaire.contains(tache)) {
-                            TachesAFaire.remove(tache);
-                        }else if (TachesEnCours.contains(tache)) {
-                            TachesEnCours.remove(tache);
+                        for(Tache tAFaire : TachesAFaire){
+                            if(tAFaire.getId() == tache.getId()){
+                                TachesAFaire.remove(tache);
+                            }
+                        }
+                        for(Tache tEnCours : TachesEnCours){
+                            if(tEnCours.getId() == tache.getId()){
+                                TachesEnCours.remove(tache);
+                            }
                         }
                         System.out.println("Tache ajoutee a la liste des taches termine");
                     }else{
@@ -93,18 +108,39 @@ public class Kanban {
     }
 
     public static void removeTache(Tache tache) {
-        switch (tache.getCategory()) {
-            case "a faire":
+        for (Tache t : TachesAFaire) {
+            if (t.getId() == tache.getId()) {
                 TachesAFaire.remove(tache);
-                break;
-            case "en cours":
+                System.out.println("Tache retiree de la liste des taches a faire");
+            }else{
+                System.out.println("Tache non existante dans la liste des taches a faire");
+            }
+        }
+        for (Tache t : TachesEnCours) {
+            if (t.getId() == tache.getId()) {
                 TachesEnCours.remove(tache);
-                break;
-            case "termine":
+                System.out.println("Tache retiree de la liste des taches en cours");
+            }else{
+                System.out.println("Tache non existante dans la liste des taches en cours");
+            }
+        }
+        for (Tache t : TachesTermine) {
+            if (t.getId() == tache.getId()) {
                 TachesTermine.remove(tache);
-                break;
-            default:
-                break;
+                System.out.println("Tache retiree de la liste des taches termine");
+            }else{
+                System.out.println("Tache non existante dans la liste des taches termine");
+            }
+        }
+        for (Projet projet : Projet.getProjets()) {
+            for (Tache t : projet.getTaches()) {
+                if (t.getId() == tache.getId()) {
+                    projet.deleteTache(tache);
+                    System.out.println("Tache retiree du projet");
+                }else{
+                    System.out.println("Tache non existante dans le projet");
+                }
+            }
         }
     }
     
