@@ -2,7 +2,6 @@ package com.isep.javafxdemo;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

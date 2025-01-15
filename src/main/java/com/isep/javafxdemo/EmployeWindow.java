@@ -64,6 +64,12 @@ public class EmployeWindow extends VBox {
         Employe creatEmploye = new Employe(-1, "New Employe", "New Role");
         new EmployeDetailWindow(creatEmploye).show();
         System.out.println("Create Employe");
+        for (Employe employe : Employe.getEmployes()) {
+            if (employe.getId() == -1) {
+                Employe.getEmployes().remove(employe);
+                break;
+            }
+        }
         MainApp.getRoot().setCenter(new EmployeWindow());
     }
 
