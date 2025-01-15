@@ -260,6 +260,12 @@ public class Tache {
         for (Employe e : membresTache) {
             if (e != employe) {
                 membresTache.add(employe);
+                // tache add member then projet add member too
+                for (Projet projet : Projet.getProjets()) {
+                    if (projet.getTaches().contains(this)) {
+                        projet.addMembre(employe);
+                    }
+                }
             }else{
                 System.out.println("Employe deja membre de la tache");
             }
