@@ -68,6 +68,7 @@ public class Employe {
     }
 
     public static ArrayList<Employe> getEmployes() {
+        setEmployes();
         return employes;
     }
 

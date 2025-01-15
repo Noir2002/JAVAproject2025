@@ -23,6 +23,7 @@ public class DataHandler {
         // 读取Employe数据
         try (BufferedReader br = new BufferedReader(new FileReader(EMPLOYES_FILE))) {
             String line = br.readLine(); // Skip header
+            if (line == null) return; // File is empty
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
@@ -34,6 +35,7 @@ public class DataHandler {
         // 读取Projet数据
         try (BufferedReader br = new BufferedReader(new FileReader(PROJETS_FILE))) {
             String line = br.readLine(); // Skip header
+            if (line == null) return; // File is empty
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 5) {
@@ -46,6 +48,7 @@ public class DataHandler {
         // 读取Tache数据
         try (BufferedReader br = new BufferedReader(new FileReader(TACHES_FILE))) {
             String line = br.readLine(); // Skip header
+            if (line == null) return; // File is empty
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 10) {
@@ -62,6 +65,7 @@ public class DataHandler {
         // 建立membresTache关系
         try (BufferedReader br = new BufferedReader(new FileReader(MEMBRES_TACHE_FILE))) {
             String line = br.readLine(); // Skip header
+            if (line == null) return; // File is empty
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
@@ -77,6 +81,7 @@ public class DataHandler {
         // 建立membresProjet关系
         try (BufferedReader br = new BufferedReader(new FileReader(MEMBRES_PROJET_FILE))) {
             String line = br.readLine(); // Skip header
+            if (line == null) return; // File is empty
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {

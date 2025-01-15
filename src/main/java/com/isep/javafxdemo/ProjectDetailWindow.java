@@ -208,15 +208,6 @@ public class ProjectDetailWindow {
         Tache newTache = new Tache(Kanban.getTaches().size() + 1, "", "", 0, 0, 1, "", "", "");
         TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, newTache, this);
         tacheDetailWindow.show();
-    
-        /*
-        // 窗口关闭后检查是否需要添加到项目
-        tacheDetailWindow.getStage().setOnHiding(event -> {
-            if (newTache.getId() > 0) {
-                newTache.addTache(project);
-                refreshKanbanBoard();
-            }
-        }); */
     }
     
     private void deleteTache() {

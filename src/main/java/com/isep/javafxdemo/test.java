@@ -49,6 +49,7 @@ public class test {
             }
         }*/
 
+        /*
         DataHandler.loadData();
         for(Employe employe : Employe.getEmployes()){
             employe.setNom("sadkhgask");
@@ -56,7 +57,7 @@ public class test {
             employe.setId(114514);
             System.out.println("Employe: " + employe.getNom());
         }
-        DataHandler.saveData();
+        DataHandler.saveData(); */
 
     }
 }

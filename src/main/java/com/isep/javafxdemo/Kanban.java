@@ -20,18 +20,22 @@ public class Kanban {
     }
 
     public static ArrayList<Tache> getTachesAFaire() {
+        setKanbanList();
         return TachesAFaire;
     }
 
     public static ArrayList<Tache> getTachesEnCours() {
+        setKanbanList();
         return TachesEnCours;
     }
 
     public static ArrayList<Tache> getTachesTermine() {
+        setKanbanList();
         return TachesTermine;
     }
 
     public static ArrayList<Tache> getTaches(){
+        setKanbanList();
         ArrayList<Tache> taches = new ArrayList<Tache>();
         taches.addAll(TachesAFaire);
         taches.addAll(TachesEnCours);
@@ -40,6 +44,7 @@ public class Kanban {
     }
 
     public static void moveTache(Tache tache) {
+        setKanbanList();
         switch (tache.getCategory()) {
             case "a faire":
                 if (TachesAFaire.isEmpty())  {

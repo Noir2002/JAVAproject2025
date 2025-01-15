@@ -25,21 +25,18 @@ public class MainApp extends Application {
         primaryStage.setTitle("Collaborative Task Management Application");
         primaryStage.setScene(scene);
         primaryStage.show();
+        // 检测到该窗口关闭时，更新csv文件
+        primaryStage.setOnCloseRequest(event -> {
+            try {
+                DataHandler.saveData();
+                System.out.println("Data saved before MainApp closes.");
+            } catch (IOException ex) {
+                System.out.println("Error saving data on close.");
+                ex.printStackTrace();
+            }
+        });
     }
-
-    // 检测到该窗口关闭时，更新csv文件
-    @Override
-    public void stop() {
-        System.out.println("Stage is closing");
-        
-        try {
-            DataHandler.saveData();
-            System.out.println("Data saved");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-    }
+    
 
     public static BorderPane getRoot()  {
             return root;

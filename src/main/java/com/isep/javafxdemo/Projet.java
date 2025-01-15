@@ -152,6 +152,7 @@ public class Projet {
     }
 
     public static ArrayList<Projet> getProjets() {
+        setProjets();
         return projets;
     }
 
