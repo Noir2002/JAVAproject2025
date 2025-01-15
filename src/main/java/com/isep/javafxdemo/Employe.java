@@ -11,19 +11,26 @@ public class Employe {
 
     public Employe(int id, String nom, String role) {
         setEmployes();
-        int i = 0;
-        for (Employe employe : employes) {
-            if (id != employe.getId()) {
-                i++;
-            }
-        }
-        if (i == employes.size()) {
+        if(employes.isEmpty()){
             this.id = id;
             this.nom = nom;
             this.role = role;
             employes.add(this);
         }else {
-        System.out.println("Employe deja existant");
+            int i = 0;
+            for (Employe employe : employes) {
+                if (id != employe.getId()) {
+                    i++;
+                }
+            }
+            if (i == employes.size()) {
+                this.id = id;
+                this.nom = nom;
+                this.role = role;
+                employes.add(this);
+            } else {
+                System.out.println("Employe deja existant");
+            }
         }
     }
 

@@ -50,10 +50,14 @@ public class WelcomeWindow extends Application {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            MainApp mainApp = new MainApp();
-            Stage mainStage = new Stage();
-            mainApp.start(mainStage);
-            primaryStage.close();
+            PermissionView permissionView = new PermissionView();
+            Stage permissionStage = new Stage();
+            try {
+                permissionView.start(permissionStage);
+                primaryStage.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
 
         layout.getChildren().addAll(welcomeText, enterButton);
