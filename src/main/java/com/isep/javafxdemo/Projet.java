@@ -13,7 +13,7 @@ public class Projet {
 
     private static ArrayList<Projet> projets;
 
-    public Projet(int id, String nom, String dateLimit, double budget) {
+    public Projet(int id, String nom, String dateLimit, double budget, double realCost) {
         setProjets();
         int i = 0;
         for (Projet projet : projets) {
@@ -26,7 +26,7 @@ public class Projet {
             this.nom = nom;
             this.dateLimit = dateLimit;
             this.budget = budget;
-            this.realCost = 0;
+            this.realCost = realCost;
             this.membresProjet = new ArrayList<Employe>();
             this.taches = new ArrayList<Tache>();
             projets.add(this);

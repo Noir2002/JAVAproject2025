@@ -39,8 +39,7 @@ public class DataHandler {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 5) {
-                    Projet projet = new Projet(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
-                    projet.setRealCost(Double.parseDouble(parts[4]));
+                    Projet projet = new Projet(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]), Double.parseDouble(parts[4]));
                 }
             }
         }
