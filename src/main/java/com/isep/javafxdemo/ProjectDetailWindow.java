@@ -254,7 +254,9 @@ public class ProjectDetailWindow {
     private void saveChanges() {
         if (isNewProject) {
             project = new Projet(Integer.parseInt(idField.getText()), nameField.getText(), dateLimitField.getText(), Double.parseDouble(budgetField.getText()), Double.parseDouble(realCostField.getText()));
-            project.getMembresProjet().clear();
+            if(project.getMembresProjet() != null) {
+                project.getMembresProjet().clear();
+            }
             project.getMembresProjet().addAll(membersListView.getItems());
         } else {
             project.setId(Integer.parseInt(idField.getText()));

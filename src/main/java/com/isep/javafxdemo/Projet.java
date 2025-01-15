@@ -15,7 +15,17 @@ public class Projet {
 
     public Projet(int id, String nom, String dateLimit, double budget, double realCost) {
         setProjets();
-        if(projets.isEmpty()){int i = 0;
+        if(projets.isEmpty()){
+            this.id = id;
+            this.nom = nom;
+            this.dateLimit = dateLimit;
+            this.budget = budget;
+            this.realCost = realCost;
+            this.membresProjet = new ArrayList<Employe>();
+            this.taches = new ArrayList<Tache>();
+            projets.add(this);
+        }else{
+            int i = 0;
             for (Projet projet : projets) {
                 if (id != projet.getId()) {
                     i++;
@@ -33,8 +43,10 @@ public class Projet {
                 i = 1;
             }else {
                 System.out.println("Projet deja existant");
-            }
         }
+        }
+        
+
     }
 
     public static void setProjets(){
