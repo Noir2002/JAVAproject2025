@@ -93,9 +93,8 @@ public class DataHandler {
     // 储存数据
     public static void saveData() throws IOException {
         // 写入Employe数据
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(EMPLOYES_FILE))) {
-            bw.write("id,nom,role");
-            bw.newLine();
+        recreateFile(EMPLOYES_FILE, "id,nom,role");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(EMPLOYES_FILE, true))) {
             for (Employe e : Employe.getEmployes()) {
                 bw.write(e.getId() + "," + e.getNom() + "," + e.getRole());
                 bw.newLine();
@@ -103,9 +102,8 @@ public class DataHandler {
         }
 
         // 写入Projet数据
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PROJETS_FILE))) {
-            bw.write("id,nom,dateLimit,budget,realCost");
-            bw.newLine();
+        recreateFile(PROJETS_FILE, "id,nom,dateLimit,budget,realCost");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(PROJETS_FILE, true))) {
             for (Projet p : Projet.getProjets()) {
                 bw.write(p.getId() + "," + p.getNom() + "," + p.getDateLimit() + "," + p.getBudget() + "," + p.getRealCost());
                 bw.newLine();
@@ -113,9 +111,8 @@ public class DataHandler {
         }
 
         // 写入Tache数据
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(TACHES_FILE))) {
-            bw.write("id,nom,dateLimit,budget,realCost,priority,category,descriptions,commentaires,idProjet");
-            bw.newLine();
+        recreateFile(TACHES_FILE, "id,nom,dateLimit,budget,realCost,priority,category,descriptions,commentaires,idProjet");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(TACHES_FILE, true))) {
             for (Tache t : Kanban.getTaches()) {
                 Projet projet = Projet.getProjets().stream().filter(p -> p.getTaches().contains(t)).findFirst().orElse(null);
                 int projetId = (projet != null) ? projet.getId() : -1;
@@ -125,9 +122,8 @@ public class DataHandler {
         }
 
         // 写入membresTache数据
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(MEMBRES_TACHE_FILE))) {
-            bw.write("idEmploye,idTache");
-            bw.newLine();
+        recreateFile(MEMBRES_TACHE_FILE, "idEmploye,idTache");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(MEMBRES_TACHE_FILE, true))) {
             for (Tache t : Kanban.getTaches()) {
                 for (Employe e : t.getMembresTache()) {
                     bw.write(e.getId() + "," + t.getId());
@@ -137,9 +133,8 @@ public class DataHandler {
         }
 
         // 写入membresProjet数据
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(MEMBRES_PROJET_FILE))) {
-            bw.write("idEmploye,idProjet");
-            bw.newLine();
+        recreateFile(MEMBRES_PROJET_FILE, "idEmploye,idProjet");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(MEMBRES_PROJET_FILE, true))) {
             for (Projet p : Projet.getProjets()) {
                 for (Employe e : p.getMembresProjet()) {
                     bw.write(e.getId() + "," + p.getId());
@@ -158,5 +153,14 @@ public class DataHandler {
                 bw.newLine();
             }
         }
+    }
+
+    // 重建文件
+    private static void recreateFile(String fileName, String header) throws IOException {
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        ensureFileExists(fileName, header);
     }
 }

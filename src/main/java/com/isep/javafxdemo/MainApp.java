@@ -1,5 +1,6 @@
 package com.isep.javafxdemo;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +25,20 @@ public class MainApp extends Application {
         primaryStage.setTitle("Collaborative Task Management Application");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    // 检测到该窗口关闭时，更新csv文件
+    @Override
+    public void stop() {
+        System.out.println("Stage is closing");
+        
+        try {
+            DataHandler.saveData();
+            System.out.println("Data saved");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public static BorderPane getRoot()  {

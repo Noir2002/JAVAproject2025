@@ -223,7 +223,7 @@ public class Tache {
     public void setDescriptions(String descriptions) {
         // update Kanban
         for (Tache tache : Kanban.getTaches()) {
-            if (tache == this) {
+            if (tache.getId() == this.getId()) {
                 tache.descriptions = descriptions;
             }
         }
@@ -241,7 +241,7 @@ public class Tache {
     public void setCommentaires(String commentaires) {
         // update Kanban
         for (Tache tache : Kanban.getTaches()) {
-            if (tache == this) {
+            if (tache.getId() == this.getId()) {
                 tache.commentaires = commentaires;
             }
         }
@@ -257,13 +257,26 @@ public class Tache {
     }
 
     public void addMembre(Employe employe) {
+        if (membresTache.isEmpty()) {
+            membresTache.add(employe);
+            // tache add member then projet add member too
+            for (Projet projet : Projet.getProjets()) {
+                for (Tache t : projet.getTaches()) {
+                    if (t.getId() == this.getId()) {
+                        projet.addMembre(employe);
+                    }
+                }
+            }
+        }
         for (Employe e : membresTache) {
-            if (e != employe) {
+            if (e.getId() != employe.getId())  {
                 membresTache.add(employe);
                 // tache add member then projet add member too
                 for (Projet projet : Projet.getProjets()) {
-                    if (projet.getTaches().contains(this)) {
-                        projet.addMembre(employe);
+                    for (Tache t : projet.getTaches()) {
+                        if (t.getId() == this.getId()) {
+                            projet.addMembre(employe);
+                        }
                     }
                 }
             }else{
@@ -274,7 +287,7 @@ public class Tache {
 
     public void deletMembre(Employe employe) {
         for (Employe e : membresTache) {
-            if (e == employe) {
+            if (e.getId() == employe.getId()) {
                 membresTache.remove(employe);
             }else{
                 System.out.println("Employe n'est pas un membre de la tache");

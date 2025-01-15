@@ -1,5 +1,7 @@
 package com.isep.javafxdemo;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
 
 public class WelcomeWindow extends Application {
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         VBox layout = new VBox(20);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
@@ -43,6 +45,11 @@ public class WelcomeWindow extends Application {
         VBox.setMargin(enterButton, new Insets(50, 0, 0, 0)); // 设置按钮的外边距
 
         enterButton.setOnAction(e -> {
+            try {
+                DataHandler.loadData();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             MainApp mainApp = new MainApp();
             Stage mainStage = new Stage();
             mainApp.start(mainStage);

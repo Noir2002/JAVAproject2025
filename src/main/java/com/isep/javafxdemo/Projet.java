@@ -101,8 +101,11 @@ public class Projet {
     }
 
     public void addMembre(Employe employe) {
+        if(membresProjet.isEmpty()){
+            membresProjet.add(employe);
+        }
         for (Employe e : membresProjet) {
-            if (e != employe) {
+            if (e.getId() != employe.getId()) {
                 membresProjet.add(employe);
             }else{
                 System.out.println("Employe deja membre du projet");
@@ -112,7 +115,7 @@ public class Projet {
 
     public void deleteMembre(Employe employe) {
         for (Employe e : membresProjet) {
-            if (e == employe) {
+            if (e.getId() == employe.getId()) {
                 membresProjet.remove(employe);
             }else{
                 System.out.println("Employe n'est pas un membre du projet");
