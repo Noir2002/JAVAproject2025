@@ -58,7 +58,7 @@ public class ProjectDetailWindow {
         HBox memberButtons = new HBox(10, addMemberButton, deleteMemberButton);
 
         // 初始化看板
-        setupKanbanBoard();
+        setupKanbanBoard(project);
 
         // 添加任务和删除任务按钮
         Button addTacheButton = new Button("Add Task");
@@ -93,7 +93,7 @@ public class ProjectDetailWindow {
         saveButton.setOnAction(e -> saveChanges());
     }
 
-    private void setupKanbanBoard() {
+    private void setupKanbanBoard(Projet project) {
         Kanban.setKanbanList();
         kanbanBoard = new GridPane();
         kanbanBoard.setHgap(10);
@@ -114,12 +114,35 @@ public class ProjectDetailWindow {
         ListView<Tache> inProgressList = new ListView<>();
         ListView<Tache> doneList = new ListView<>();
 
-        toDoList.getItems().addAll(Kanban.getTachesAFaire());
-        System.out.println("taches a faire : " + Kanban.getTachesAFaire());
-        inProgressList.getItems().addAll(Kanban.getTachesEnCours());
-        System.out.println("taches en cours : " + Kanban.getTachesEnCours());
-        doneList.getItems().addAll(Kanban.getTachesTermine());
-        System.out.println("taches termine : " + Kanban.getTachesTermine());
+        if(project.getTaches() != null){
+            for(Tache tache : project.getTaches()) {
+                for(Tache tache1 : Kanban.getTachesAFaire()) {
+                    if(tache.getId() == tache1.getId()) {
+                        toDoList.getItems().addAll(Kanban.getTachesAFaire());
+                        System.out.println("taches a faire : " + Kanban.getTachesAFaire());
+                    }
+                }
+            }
+            
+            for(Tache tache : project.getTaches()) {
+                for(Tache tache1 : Kanban.getTachesEnCours()) {
+                    if(tache.getId() == tache1.getId()) {
+                        inProgressList.getItems().addAll(Kanban.getTachesEnCours());
+                        System.out.println("taches en cours : " + Kanban.getTachesEnCours());
+                    }
+                }
+            }
+            
+            for(Tache tache : project.getTaches()) {
+                for(Tache tache1 : Kanban.getTachesTermine()) {
+                    if(tache.getId() == tache1.getId()) {
+                        doneList.getItems().addAll(Kanban.getTachesTermine());
+                        System.out.println("taches termine : " + Kanban.getTachesTermine());
+                    }
+                }
+            }
+        }
+        
 
         kanbanBoard.add(toDoList, 0, 1);
         kanbanBoard.add(inProgressList, 1, 1);
@@ -270,6 +293,10 @@ public class ProjectDetailWindow {
         System.out.println("Changes saved for project: " + project.getNom());
         stage.close();
         MainApp.getRoot().setCenter(new ProjetWindow());
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public void show() {

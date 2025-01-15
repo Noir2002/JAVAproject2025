@@ -158,6 +158,8 @@ public class TacheDetailWindow {
                 commentArea.getText()
             );
             projet.addTache(tache);
+            System.out.println("Tache ajoutee au projet: " + projet.getNom() + "-" + projet.getId());
+            isNewTache = false;
         } else {
             System.out.println("Updating task...");
             tache.setId(Integer.parseInt(idField.getText()));
@@ -172,9 +174,10 @@ public class TacheDetailWindow {
             tache.getMembresTache().clear();
             tache.getMembresTache().addAll(membersListView.getItems());
         }
-        System.out.println("Changes saved for task: " + tache.getNom());
+        System.out.println("Changes saved for task: " + tache.getId());
         stage.close();
-        projectDetailWindow.refresh(projet);
+        projectDetailWindow.getStage().close();
+        new ProjectDetailWindow(projet, isNewTache).show();
     }
 
     private int generateUniqueId() {

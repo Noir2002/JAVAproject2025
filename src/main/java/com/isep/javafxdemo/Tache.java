@@ -229,10 +229,12 @@ public class Tache {
             Kanban.moveTache(this);
             // update Projet
             for (Projet projet : Projet.getProjets()) {
-                if (projet.getTaches().contains(this)) {
-                    projet.deleteTache(this);
-                    projet.addTache(this);
-                    break;
+                for (Tache t : projet.getTaches()) {
+                    if (t.getId() == this.getId()) {
+                        projet.deleteTache(this);
+                        projet.addTache(this);
+                        break;
+                    }
                 }
             }
         }

@@ -51,7 +51,7 @@ public class Kanban {
                     TachesAFaire.add(tache);
                 }
                 for (Tache t : TachesAFaire) {
-                    if (t != tache) {
+                    if (t.getId() != tache.getId()) {
                         TachesAFaire.add(tache);
                         for(Tache tEnCours : TachesEnCours){
                             if(tEnCours.getId() == tache.getId()){
@@ -75,7 +75,7 @@ public class Kanban {
                     TachesEnCours.add(tache);
                 }
                 for (Tache t : TachesEnCours) {
-                    if (t != tache) {
+                    if (t.getId() != tache.getId()) {
                         TachesEnCours.add(tache);
                         for(Tache tAFaire : TachesAFaire){
                             if(tAFaire.getId() == tache.getId()){
@@ -98,7 +98,7 @@ public class Kanban {
                     TachesTermine.add(tache);
                 }
                 for (Tache t : TachesTermine) {
-                    if (t != tache) {
+                    if (t.getId() != tache.getId()) {
                         TachesTermine.add(tache);
                         for(Tache tAFaire : TachesAFaire){
                             if(tAFaire.getId() == tache.getId()){
