@@ -180,7 +180,7 @@ public class Projet {
         for (Employe e : membresProjet) {
             membresString += "Employe [id=" + e.getId() + ", nom=" + e.getNom() + "]" + "\n";
         }
-        return "Projet [id=" + id + ", nom=" + nom + ", dateLimit=" + dateLimit + ", budget=" + budget + ", realCost=" + realCost + "]"
+        return "Projet [id=" + id + ", nom=" + nom + ",\ndateLimit=" + dateLimit + ", budget=" + budget + ", realCost=" + realCost + "]"
                 + "\nMembres du projet : " + membresString
                 + "\nTaches du projet : \n" + tachesString + "\n";
     }

@@ -353,6 +353,6 @@ public class Tache {
 
     @Override
     public String toString() {
-        return "Tache [id=" + id + ", nom=" + nom + ", dateLimit=" + dateLimit + ", budget=" + budget + ", realCost=" + realCost + ", priority=" + priority + ", category=" + category + ", \ndescriptions=" + descriptions + ", \ncommentaires=" + commentaires + "]";
+        return "Tache [id=" + id + ", nom=" + nom + ",\ndateLimit=" + dateLimit + ", budget=" + budget + ", realCost=" + realCost + ",\npriority=" + priority + ", category=" + category + ", \ndescriptions=" + descriptions + ", \ncommentaires=" + commentaires + "]";
     }
 }
