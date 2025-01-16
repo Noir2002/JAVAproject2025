@@ -185,9 +185,11 @@ public class TacheDetailWindow {
             for (Tache t : projet.getTaches()) {
                 if (t.getId() == tache.getId()) {
                     projet.getTaches().remove(t);
+                    break;
                 }
             }
         }
+        System.out.println("categoryComboBox.getValue(): " + categoryComboBox.getValue());
         this.tache = new Tache(
                 Integer.parseInt(idField.getText()),
                 nameField.getText(),
