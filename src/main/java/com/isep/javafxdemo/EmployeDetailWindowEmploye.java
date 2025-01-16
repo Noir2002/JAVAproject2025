@@ -75,7 +75,7 @@ public class EmployeDetailWindowEmploye {
         employe.setNom(nomField.getText());
         employe.setRole(roleField.getText());
         stage.close();
-        MainApp.getRoot().setCenter(new EmployeWindow());        
+        MainAppEmploye.getRoot().setCenter(new EmployeWindow());        
     }
 
     public void show() {

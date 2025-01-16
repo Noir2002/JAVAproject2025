@@ -205,7 +205,7 @@ public class ProjectDetailWindowEmploye {
         }
         System.out.println("Changes saved for project: " + project.getNom());
         stage.close();
-        MainApp.getRoot().setCenter(new ProjetWindow());
+        MainAppEmploye.getRoot().setCenter(new ProjetWindow());
     }
 
     public Stage getStage() {
