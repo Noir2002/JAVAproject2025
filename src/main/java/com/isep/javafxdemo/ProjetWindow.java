@@ -55,7 +55,7 @@ public class ProjetWindow extends VBox {
 
     private void createProject() {
         Projet creatProjet = new Projet(-1, "creatProjet", "yyyy-MM-dd HH:mm:ss", 10000, 0);
-        new ProjectDetailWindow(creatProjet, true).show();
+        new ProjectDetailWindow (creatProjet, true).show();
         for (Projet projet : Projet.getProjets()) {
             if (projet.getId() == -1) {
                 Projet.getProjets().remove(projet);

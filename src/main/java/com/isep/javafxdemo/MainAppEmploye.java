@@ -12,7 +12,7 @@ public class MainAppEmploye extends Application {
     @Override
     public void start(Stage primaryStage) {
         root = new BorderPane();
-        Sidebar sidebar = new Sidebar();
+        SidebarEmploye sidebar = new SidebarEmploye();
         root.setLeft(sidebar.getSidebar());
 
         // 默认显示Employe窗口

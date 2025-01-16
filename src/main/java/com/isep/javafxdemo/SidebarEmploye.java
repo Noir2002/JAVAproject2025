@@ -4,19 +4,19 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import java.util.function.Consumer;
 
-public class Sidebar {
+public class SidebarEmploye {
     private VBox sidebar;
     private Consumer<javafx.scene.Node> navigationHandler;
 
-    public Sidebar() {
+    public SidebarEmploye() {
         sidebar = new VBox();
         Button employeButton = createButton("Employe");
         Button projetButton = createButton("Projet");
         Button calenderButton = createButton("Calendar");
         Button reportButton = createButton("Report");
 
-        employeButton.setOnAction(e -> navigateTo(new EmployeWindow()));
-        projetButton.setOnAction(e -> navigateTo(new ProjetWindow()));
+        employeButton.setOnAction(e -> navigateTo(new EmployeWindowEmploye()));
+        projetButton.setOnAction(e -> navigateTo(new ProjetWindowEmploye()));
         calenderButton.setOnAction(e -> navigateTo(new CalendarWindow()));
         reportButton.setOnAction(e -> navigateTo(new ReportWindow().getWindow()));
 
@@ -42,5 +42,5 @@ public class Sidebar {
         if (navigationHandler != null) {
             navigationHandler.accept(window);
         }
-    }
+    }    
 }
