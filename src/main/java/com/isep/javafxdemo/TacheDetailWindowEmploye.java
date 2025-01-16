@@ -131,7 +131,7 @@ public class TacheDetailWindowEmploye {
 
         System.out.println("Tache: " + tache + "--------------------》》》 Projet: " + projet.getId());
         stage.close();
-        new ProjectDetailWindow(projet, false).show();
+        new ProjectDetailWindowEmploye(projet, false).show();
     }
 
     public Stage getStage() {

@@ -183,7 +183,7 @@ public class ProjectDetailWindowEmploye {
 
     public void refresh(Projet project) {
         this.stage.close();
-        ProjectDetailWindow projectDetailWindow = new ProjectDetailWindow(project, false);
+        ProjectDetailWindowEmploye projectDetailWindow = new ProjectDetailWindowEmploye(project, false);
         projectDetailWindow.show();
     }
 
