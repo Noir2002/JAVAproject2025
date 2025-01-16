@@ -57,12 +57,10 @@ public class PermissionView extends Application {
                     }else if(em.getRole().equals("employe")){
                         System.out.println("The visitor logs in successfully and loads the main interface");
                         // open visitor window
-                        showAccessDenied(primaryStage);
+                        openMainAppEmploye(primaryStage);
                     }else{
                         // 登录失败，显示错误提示
-                        Label errorLabel = new Label("Invalid role!");
-                        errorLabel.setStyle("-fx-text-fill: red;");
-                        grid.add(errorLabel, 1, 3);
+                        showAccessDenied(primaryStage);
                     }
                     break;
                 }else{// 登录失败，显示错误提示
@@ -70,11 +68,7 @@ public class PermissionView extends Application {
                     errorLabel.setStyle("-fx-text-fill: red;");
                     grid.add(errorLabel, 1, 3);
                 }
-
-
             }
-
-
         });
 
         // 设置场景
@@ -101,6 +95,20 @@ public class PermissionView extends Application {
      */
     private void openMainApp(Stage primaryStage) {
         MainApp mainApp = new MainApp();
+        try {
+            mainApp.start(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        /**
+     * 加载主界面 (MainApp)
+     *
+     * @param primaryStage 主舞台
+     */
+    private void openMainAppEmploye(Stage primaryStage) {
+        MainAppEmploye mainApp = new MainAppEmploye();
         try {
             mainApp.start(primaryStage);
         } catch (Exception e) {

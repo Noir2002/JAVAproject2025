@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class TacheDetailWindow {
+public class TacheDetailWindowEmploye {
     private Stage stage;
     private Tache tache;
     private TextField idField;
@@ -30,7 +30,7 @@ public class TacheDetailWindow {
     //private boolean isNewTache;
     private Projet projet;
 
-    public TacheDetailWindow(Projet projet, Tache tache) {
+    public TacheDetailWindowEmploye(Projet projet, Tache tache) {
         //this.isNewTache = isNewTache(tache.getId());
         this.tache = tache;
         this.projet = projet;
@@ -69,14 +69,18 @@ public class TacheDetailWindow {
             membersListView.getItems().addAll(tache.getMembresTache());
         }
 
-        Button addMemberButton = new Button("Add Member");
-        Button deleteMemberButton = new Button("Delete Member");
-        HBox memberButtons = new HBox(10, addMemberButton, deleteMemberButton);
-
         // 保存按钮
         Button saveButton = new Button("Save");
         HBox saveButtonBox = new HBox(saveButton);
         saveButtonBox.setAlignment(Pos.TOP_RIGHT);
+
+        // editability
+        idField.setEditable(false);
+        nameField.setEditable(false);
+        budgetField.setEditable(false);
+        realCostField.setEditable(false);
+        dateLimitField.setEditable(false);
+
 
         layout.getChildren().addAll(
             new Label("ID:"), idField,
@@ -88,7 +92,7 @@ public class TacheDetailWindow {
             new Label("Category:"), categoryComboBox,
             new Label("Description:"), descriptionArea,
             new Label("Comments:"), commentArea,
-            new Label("Members:"), membersListView, memberButtons,
+            new Label("Members:"), membersListView,
             saveButtonBox
         );
 
@@ -96,48 +100,10 @@ public class TacheDetailWindow {
         stage.setScene(scene);
 
         // 按钮事件绑定
-        addMemberButton.setOnAction(e -> addMember());
-        deleteMemberButton.setOnAction(e -> deleteMember());
         saveButton.setOnAction(e -> saveChanges());
     }
 
-    private void addMember() {
-        Stage addMemberStage = new Stage();
-        addMemberStage.setTitle("Add Members");
-
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(10));
-
-        ListView<Employe> allEmployeesList = new ListView<>();
-        allEmployeesList.getItems().addAll(Employe.getEmployes());
-        allEmployeesList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        Button addButton = new Button("Add");
-        addButton.setOnAction(e -> {
-            for (Employe selectedEmployee : allEmployeesList.getSelectionModel().getSelectedItems()) {
-                if (!membersListView.getItems().contains(selectedEmployee)) {
-                    membersListView.getItems().add(selectedEmployee);
-                }
-            }
-            addMemberStage.close();
-        });
-
-        layout.getChildren().addAll(new Label("Select Members:"), allEmployeesList, addButton);
-
-        Scene scene = new Scene(layout, 300, 400);
-        addMemberStage.setScene(scene);
-        addMemberStage.show();
-    }
-
-    private void deleteMember() {
-        Employe selectedMember = membersListView.getSelectionModel().getSelectedItem();
-        if (selectedMember != null) {
-            membersListView.getItems().remove(selectedMember);
-            System.out.println("Delete Member: " + selectedMember.getNom());
-        }
-    }
-
-    private void saveChanges() {        
+    private void saveChanges() {       
         if(!projet.getTaches().isEmpty()){
             for (Tache t : projet.getTaches()) {
                 if (t.getId() == tache.getId()) {
@@ -174,5 +140,5 @@ public class TacheDetailWindow {
 
     public void show() {
         stage.show();
-    }
+    }   
 }

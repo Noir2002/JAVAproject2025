@@ -15,8 +15,8 @@ public class Sidebar {
         Button calenderButton = createButton("Calendar");
         Button reportButton = createButton("Report");
 
-        employeButton.setOnAction(e -> navigateTo(new EmployeWindow()));
-        projetButton.setOnAction(e -> navigateTo(new ProjetWindow()));
+        employeButton.setOnAction(e -> navigateTo(new EmployeWindowEmploye()));
+        projetButton.setOnAction(e -> navigateTo(new ProjetWindowEmploye()));
         calenderButton.setOnAction(e -> navigateTo(new CalendarWindow()));
         reportButton.setOnAction(e -> navigateTo(new ReportWindow().getWindow()));
 
