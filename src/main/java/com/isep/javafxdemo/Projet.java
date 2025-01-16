@@ -178,10 +178,10 @@ public class Projet {
 
         String membresString = "";
         for (Employe e : membresProjet) {
-            membresString += "Employe [id=" + e.getId() + ", nom=" + e.getNom() + "]" + "\n";
+            membresString += e.toString() + "\n";
         }
         return "Projet [id=" + id + ", nom=" + nom + ",\ndateLimit=" + dateLimit + ", budget=" + budget + ", realCost=" + realCost + "]"
-                + "\nMembres du projet : " + membresString
+                + "\nMembres du projet : \n" + membresString
                 + "\nTaches du projet : \n" + tachesString + "\n";
     }
 
