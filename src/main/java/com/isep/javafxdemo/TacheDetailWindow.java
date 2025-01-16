@@ -190,18 +190,23 @@ public class TacheDetailWindow {
             }
         }
         System.out.println("categoryComboBox.getValue(): " + categoryComboBox.getValue());
-        this.tache = new Tache(
-                Integer.parseInt(idField.getText()),
-                nameField.getText(),
-                dateLimitField.getText(),
-                Double.parseDouble(budgetField.getText()),
-                Double.parseDouble(realCostField.getText()),
-                Integer.parseInt(priorityField.getText()),
-                categoryComboBox.getValue(),
-                descriptionArea.getText(),
-                commentArea.getText()
-            );
-        projet.addTache(tache);
+        tache.setId(Integer.parseInt(idField.getText()));
+        tache.setNom(nameField.getText());
+        tache.setDateLimit(dateLimitField.getText());
+        tache.setBudget(Double.parseDouble(budgetField.getText()));
+        tache.setRealCost(Double.parseDouble(realCostField.getText()));
+        tache.setPriority(Integer.parseInt(priorityField.getText()));
+        tache.setCategory(categoryComboBox.getValue());
+        tache.setDescriptions(descriptionArea.getText());
+        tache.setCommentaires(commentArea.getText());
+        tache.getMembresTache().clear();
+        tache.getMembresTache().addAll(membersListView.getItems());
+
+        if (!projet.getTaches().contains(tache)) {
+            projet.addTache(tache);
+        }
+
+        System.out.println("Tache: " + tache + "--------------------》》》 Projet: " + projet.getId());
         stage.close();
         new ProjectDetailWindow(projet, false).show();
     }
