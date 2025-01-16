@@ -49,23 +49,39 @@ public class Kanban {
             case "a faire":
                 if (TachesAFaire.isEmpty())  {
                     TachesAFaire.add(tache);
-                }
-                for (Tache t : TachesAFaire) {
-                    if (t.getId() != tache.getId()) {
-                        TachesAFaire.add(tache);
-                        for(Tache tEnCours : TachesEnCours){
-                            if(tEnCours.getId() == tache.getId()){
-                                TachesEnCours.remove(tache);
-                            }
+                    for(Tache tEnCours : TachesEnCours){
+                        if(tEnCours.getId() == tache.getId()){
+                            TachesEnCours.remove(tEnCours);
+                            break;
                         }
-                        for(Tache tTermine : TachesTermine){
-                            if(tTermine.getId() == tache.getId()){
-                                TachesTermine.remove(tache);
-                            }
+                    }
+                    for(Tache tTermine : TachesTermine){
+                        if(tTermine.getId() == tache.getId()){
+                            TachesTermine.remove(tTermine);
+                            break;
                         }
-                        System.out.println("Tache ajoutee a la liste des taches a faire");
-                    }else{
-                    System.out.println("Tache deja existante dans la liste des taches a faire");
+                    }
+                    System.out.println("Tache ajoutee a la liste des taches a faire");
+                }else{
+                    for (Tache t : TachesAFaire) {
+                        if (t.getId() != tache.getId()) {
+                            TachesAFaire.add(tache);
+                            for(Tache tEnCours : TachesEnCours){
+                                if(tEnCours.getId() == tache.getId()){
+                                    TachesEnCours.remove(tEnCours);
+                                    break;
+                                }
+                            }
+                            for(Tache tTermine : TachesTermine){
+                                if(tTermine.getId() == tache.getId()){
+                                    TachesTermine.remove(tTermine);
+                                    break;
+                                }
+                            }
+                            System.out.println("Tache ajoutee a la liste des taches a faire");
+                        }else{
+                        System.out.println("Tache deja existante dans la liste des taches a faire");
+                        }
                     }
                 }
                 
@@ -73,48 +89,81 @@ public class Kanban {
             case "en cours":
                 if (TachesEnCours.isEmpty())  {
                     TachesEnCours.add(tache);
-                }
-                for (Tache t : TachesEnCours) {
-                    if (t.getId() != tache.getId()) {
-                        TachesEnCours.add(tache);
-                        for(Tache tAFaire : TachesAFaire){
-                            if(tAFaire.getId() == tache.getId()){
-                                TachesAFaire.remove(tache);
-                            }
+                    for(Tache tAFaire : TachesAFaire){
+                        if(tAFaire.getId() == tache.getId()){
+                            TachesAFaire.remove(tAFaire);
+                            break;
                         }
-                        for(Tache tTermine : TachesTermine){
-                            if(tTermine.getId() == tache.getId()){
-                                TachesTermine.remove(tache);
-                            }
+                    }
+                    for(Tache tTermine : TachesTermine){
+                        if(tTermine.getId() == tache.getId()){
+                            TachesTermine.remove(tTermine);
+                            break;
                         }
-                        System.out.println("Tache ajoutee a la liste des taches en cours");
-                    }else{
-                    System.out.println("Tache deja existante dans la liste des taches en cours");
+                    }
+                    System.out.println("Tache ajoutee a la liste des taches en cours");
+                }else{
+                    for (Tache t : TachesEnCours) {
+                        if (t.getId() != tache.getId()) {
+                            TachesEnCours.add(tache);
+                            for(Tache tAFaire : TachesAFaire){
+                                if(tAFaire.getId() == tache.getId()){
+                                    TachesAFaire.remove(tAFaire);
+                                    break;
+                                }
+                            }
+                            for(Tache tTermine : TachesTermine){
+                                if(tTermine.getId() == tache.getId()){
+                                    TachesTermine.remove(tTermine);
+                                    break;
+                                }
+                            }
+                            System.out.println("Tache ajoutee a la liste des taches en cours");
+                        }else{
+                        System.out.println("Tache deja existante dans la liste des taches en cours");
+                        }
                     }
                 }
                 break;
             case "termine":
                 if (TachesTermine.isEmpty())  {
                     TachesTermine.add(tache);
-                }
-                for (Tache t : TachesTermine) {
-                    if (t.getId() != tache.getId()) {
-                        TachesTermine.add(tache);
-                        for(Tache tAFaire : TachesAFaire){
-                            if(tAFaire.getId() == tache.getId()){
-                                TachesAFaire.remove(tache);
-                            }
+                    for(Tache tAFaire : TachesAFaire){
+                        if(tAFaire.getId() == tache.getId()){
+                            TachesAFaire.remove(tAFaire);
+                            break;
                         }
-                        for(Tache tEnCours : TachesEnCours){
-                            if(tEnCours.getId() == tache.getId()){
-                                TachesEnCours.remove(tache);
-                            }
+                    }
+                    for(Tache tEnCours : TachesEnCours){
+                        if(tEnCours.getId() == tache.getId()){
+                            TachesEnCours.remove(tEnCours);
+                            break;
                         }
-                        System.out.println("Tache ajoutee a la liste des taches termine");
-                    }else{
-                    System.out.println("Tache deja existante dans la liste des taches termine");
+                    }
+                    System.out.println("Tache ajoutee a la liste des taches termine");
+                }else{
+                    for (Tache t : TachesTermine) {
+                        if (t.getId() != tache.getId()) {
+                            TachesTermine.add(tache);
+                            for(Tache tAFaire : TachesAFaire){
+                                if(tAFaire.getId() == tache.getId()){
+                                    TachesAFaire.remove(tAFaire);
+                                    break;
+                                }
+                            }
+                            for(Tache tEnCours : TachesEnCours){
+                                if(tEnCours.getId() == tache.getId()){
+                                    TachesEnCours.remove(tEnCours);
+                                    break;
+                                }
+                            }
+                            System.out.println("Tache ajoutee a la liste des taches termine");
+                        }else{
+                        System.out.println("Tache deja existante dans la liste des taches termine");
+                        }
                     }
                 }
+                
                 break;
             default:
                 break;
@@ -124,24 +173,27 @@ public class Kanban {
     public static void removeTache(Tache tache) {
         for (Tache t : TachesAFaire) {
             if (t.getId() == tache.getId()) {
-                TachesAFaire.remove(tache);
+                TachesAFaire.remove(t);
                 System.out.println("Tache retiree de la liste des taches a faire");
+                break;
             }else{
                 System.out.println("Tache non existante dans la liste des taches a faire");
             }
         }
         for (Tache t : TachesEnCours) {
             if (t.getId() == tache.getId()) {
-                TachesEnCours.remove(tache);
+                TachesEnCours.remove(t);
                 System.out.println("Tache retiree de la liste des taches en cours");
+                break;
             }else{
                 System.out.println("Tache non existante dans la liste des taches en cours");
             }
         }
         for (Tache t : TachesTermine) {
             if (t.getId() == tache.getId()) {
-                TachesTermine.remove(tache);
+                TachesTermine.remove(t);
                 System.out.println("Tache retiree de la liste des taches termine");
+                break;
             }else{
                 System.out.println("Tache non existante dans la liste des taches termine");
             }
@@ -149,7 +201,7 @@ public class Kanban {
         for (Projet projet : Projet.getProjets()) {
             for (Tache t : projet.getTaches()) {
                 if (t.getId() == tache.getId()) {
-                    projet.deleteTache(tache);
+                    projet.deleteTache(t);
                     System.out.println("Tache retiree du projet");
                 }else{
                     System.out.println("Tache non existante dans le projet");

@@ -156,8 +156,9 @@ public class ProjectDetailWindow {
             if (event.getClickCount() == 2) {
                 Tache selectedTask = toDoList.getSelectionModel().getSelectedItem();
                 if (selectedTask != null) {
-                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask, this);
+                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask);
                     tacheDetailWindow.show();
+                    this.stage.close();
                 }
             }
         });
@@ -166,8 +167,9 @@ public class ProjectDetailWindow {
             if (event.getClickCount() == 2) {
                 Tache selectedTask = inProgressList.getSelectionModel().getSelectedItem();
                 if (selectedTask != null) {
-                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask, this);
+                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask);
                     tacheDetailWindow.show();
+                    this.stage.close();
                 }
             }
         });
@@ -176,8 +178,9 @@ public class ProjectDetailWindow {
             if (event.getClickCount() == 2) {
                 Tache selectedTask = doneList.getSelectionModel().getSelectedItem();
                 if (selectedTask != null) {
-                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask, this);
+                    TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, selectedTask);
                     tacheDetailWindow.show();
+                    this.stage.close();
                 }
             }
         });
@@ -229,50 +232,44 @@ public class ProjectDetailWindow {
     private void addTache() {
         // 打开 TacheDetailWindow 让用户创建任务
         Tache newTache = new Tache(Kanban.getTaches().size() + 1, "", "", 0, 0, 1, "", "", "");
-        TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, newTache, this);
+        TacheDetailWindow tacheDetailWindow = new TacheDetailWindow(project, newTache);
         tacheDetailWindow.show();
+        this.stage.close();
     }
     
     private void deleteTache() {
         // 从看板中获取选中的任务
-        ListView<Tache> selectedListView = null;
+        Tache selectedTache = null;
         for (Node node : kanbanBoard.getChildren()) {
             if (node instanceof ListView) {
                 ListView<Tache> listView = (ListView<Tache>) node;
                 if (!listView.getSelectionModel().isEmpty()) {
-                    selectedListView = listView;
+                    selectedTache = listView.getSelectionModel().getSelectedItem();
                     break;
                 }
             }
         }
     
-        if (selectedListView != null) {
-            Tache selectedTache = selectedListView.getSelectionModel().getSelectedItem();
-            if (selectedTache != null) {
-                // 确认删除
-                Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmDialog.setTitle("Delete Task");
-                confirmDialog.setHeaderText("Are you sure you want to delete this task?");
-                confirmDialog.setContentText("Task: " + selectedTache.getNom());
+        if (selectedTache != null) {
+            // 从项目的任务列表中移除任务
+            project.getTaches().remove(selectedTache);
     
-                confirmDialog.showAndWait().ifPresent(response -> {
-                    if (response == ButtonType.OK) {
-                        // 从项目和看板中删除任务
-                        selectedTache.deleteTache(selectedTache);
-                        refresh(project);
-                    }
-                });
-            }
+            // 从看板中移除任务
+            Kanban.removeTache(selectedTache);
+    
+            System.out.println("Deleted Task: " + selectedTache.getNom());
+    
+            // 刷新界面
+            refresh(project);
         } else {
-            // 未选择任务时提示
+            // 如果未选择任务，弹出提示
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("No Task Selected");
             alert.setHeaderText(null);
-            alert.setContentText("Please select a task to delete from the Kanban board.");
+            alert.setContentText("Please select a task to delete.");
             alert.showAndWait();
         }
-    }
-    
+    }    
 
     private void saveChanges() {
         if (isNewProject) {

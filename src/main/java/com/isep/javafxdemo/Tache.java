@@ -232,7 +232,9 @@ public class Tache {
                 for (Tache t : projet.getTaches()) {
                     if (t.getId() == this.getId()) {
                         projet.deleteTache(this);
+                        System.out.println("setCategory-update Projet: delete from " + projet.getId());
                         projet.addTache(this);
+                        System.out.println("setCategory-update Projet: add to " + projet.getId());
                         break;
                     }
                 }

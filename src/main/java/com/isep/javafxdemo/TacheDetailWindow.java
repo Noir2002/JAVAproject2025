@@ -27,41 +27,45 @@ public class TacheDetailWindow {
     private TextArea commentArea;
     private ComboBox<String> categoryComboBox;
     private ListView<Employe> membersListView;
-    private boolean isNewTache;
+    //private boolean isNewTache;
     private Projet projet;
 
-    public TacheDetailWindow(Projet projet, Tache tache, ProjectDetailWindow projectDetailWindow) {
-        this.isNewTache = isNewTache(tache.getId());
+    public TacheDetailWindow(Projet projet, Tache tache) {
+        //this.isNewTache = isNewTache(tache.getId());
         this.tache = tache;
         this.projet = projet;
         stage = new Stage();
-        stage.setTitle(isNewTache ? "Create Task" : "Edit Task");
+        stage.setTitle("Task");
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(10));
 
         // 基本信息输入框
-        idField = new TextField(isNewTache ? String.valueOf(generateUniqueId()) : String.valueOf(tache.getId()));
-        nameField = new TextField(isNewTache ? "" : tache.getNom());
-        budgetField = new TextField(isNewTache ? "" : String.valueOf(tache.getBudget()));
-        realCostField = new TextField(isNewTache ? "" : String.valueOf(tache.getRealCost()));
-        dateLimitField = new TextField(isNewTache ? "" : tache.getDateLimit());
-        priorityField = new TextField(isNewTache ? "" : String.valueOf(tache.getPriority()));
+        idField = new TextField(String.valueOf(tache.getId()));
+        nameField = new TextField(tache.getNom());
+        budgetField = new TextField(String.valueOf(tache.getBudget()));
+        realCostField = new TextField(String.valueOf(tache.getRealCost()));
+        dateLimitField = new TextField(tache.getDateLimit());
+        priorityField = new TextField(String.valueOf(tache.getPriority()));
 
         // 类别选择
         categoryComboBox = new ComboBox<>();
         categoryComboBox.getItems().addAll("a faire", "en cours", "termine");
-        categoryComboBox.setValue(isNewTache ? "a faire" : tache.getCategory());
+        if(tache.getCategory() != "a faire" && tache.getCategory() != "en cours" && tache.getCategory() != "termine"){
+            categoryComboBox.setValue("a faire");
+        }else{
+            categoryComboBox.setValue(tache.getCategory());
+        }
 
         // 描述和评论
-        descriptionArea = new TextArea(isNewTache ? "" : tache.getDescriptions());
+        descriptionArea = new TextArea(tache.getDescriptions());
         descriptionArea.setPromptText("Description");
-        commentArea = new TextArea(isNewTache ? "" : tache.getCommentaires());
+        commentArea = new TextArea(tache.getCommentaires());
         commentArea.setPromptText("Comments");
 
         // 成员列表
         membersListView = new ListView<>();
-        if (!isNewTache) {
+        if (tache.getMembresTache() != null) {
             membersListView.getItems().addAll(tache.getMembresTache());
         }
 
@@ -94,9 +98,9 @@ public class TacheDetailWindow {
         // 按钮事件绑定
         addMemberButton.setOnAction(e -> addMember());
         deleteMemberButton.setOnAction(e -> deleteMember());
-        saveButton.setOnAction(e -> saveChanges(projectDetailWindow));
+        saveButton.setOnAction(e -> saveChanges());
     }
-
+/*
     private boolean isNewTache(int id) {
         for (Tache existingTache : Kanban.getTaches()) {
             if (existingTache.getId() == id) {
@@ -104,7 +108,7 @@ public class TacheDetailWindow {
             }
         }
         return true;
-    }
+    } */
 
     private void addMember() {
         Stage addMemberStage = new Stage();
@@ -142,7 +146,8 @@ public class TacheDetailWindow {
         }
     }
 
-    private void saveChanges(ProjectDetailWindow projectDetailWindow) {
+    private void saveChanges() {
+        /*
         if (isNewTache) {
             System.out.println("Creating new task...");
             System.out.println("categoryComboBox.getValue(): " + categoryComboBox.getValue());
@@ -174,19 +179,39 @@ public class TacheDetailWindow {
             tache.getMembresTache().clear();
             tache.getMembresTache().addAll(membersListView.getItems());
         }
-        System.out.println("Changes saved for task: " + tache.getId());
+        System.out.println("Changes saved for task: " + tache.getId()); */
+        
+        if(!projet.getTaches().isEmpty()){
+            for (Tache t : projet.getTaches()) {
+                if (t.getId() == tache.getId()) {
+                    projet.getTaches().remove(t);
+                }
+            }
+        }
+        this.tache = new Tache(
+                Integer.parseInt(idField.getText()),
+                nameField.getText(),
+                dateLimitField.getText(),
+                Double.parseDouble(budgetField.getText()),
+                Double.parseDouble(realCostField.getText()),
+                Integer.parseInt(priorityField.getText()),
+                categoryComboBox.getValue(),
+                descriptionArea.getText(),
+                commentArea.getText()
+            );
+        projet.addTache(tache);
         stage.close();
-        projectDetailWindow.getStage().close();
-        new ProjectDetailWindow(projet, isNewTache).show();
+        new ProjectDetailWindow(projet, false).show();
     }
 
+    /* 
     private int generateUniqueId() {
         int maxId = 0;
         for (Tache t : Kanban.getTaches()) {
             maxId = Math.max(maxId, t.getId());
         }
         return maxId + 1;
-    }
+    }*/
 
     public Stage getStage() {
         return stage;
