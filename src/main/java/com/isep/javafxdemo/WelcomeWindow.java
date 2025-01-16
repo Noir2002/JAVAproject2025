@@ -23,7 +23,7 @@ public class WelcomeWindow extends Application {
 
         // 设置背景图片
         BackgroundImage backgroundImage = new BackgroundImage(
-                new Image("file:D:/IntelliJ IDEA 2024.2.3/ISEP A1 A&P/javafx-demo/Designer.png"), // 替换为你的图片路径
+                new Image("file:D:/IntelliJ IDEA 2024.2.3/ISEP A1 A&P/javafx-demo/Designer.png"), // ########## Path to the image ##########
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
