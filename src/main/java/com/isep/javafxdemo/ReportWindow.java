@@ -123,6 +123,31 @@ public class ReportWindow extends VBox {
                 document.add(new Paragraph("Date Limit: " + selectedProject.getDateLimit()));
                 document.add(new Paragraph("Budget: " + selectedProject.getBudget()));
                 document.add(new Paragraph("Real Cost: " + selectedProject.getRealCost()));
+                document.add(new Paragraph("\n")); // 空行
+
+                // 添加成员信息
+                document.add(new Paragraph("Membres du projet:"));
+                if (selectedProject.getMembresProjet().isEmpty()) {
+                    document.add(new Paragraph("No members assigned."));
+                } else {
+                    for (Employe member : selectedProject.getMembresProjet()) {
+                        document.add(new Paragraph("- ID: " + member.getId() + ", Name: " + member.getNom()));
+                    }
+                }
+                document.add(new Paragraph("\n")); // 空行
+
+                // 添加任务信息
+                document.add(new Paragraph("Taches du projet:"));
+                if (selectedProject.getTaches().isEmpty()) {
+                    document.add(new Paragraph("No tasks assigned."));
+                } else {
+                    for (Tache task : selectedProject.getTaches()) {
+                        document.add(new Paragraph("- " + task.toString())); // 假设 Tache 类实现了 toString 方法
+                    }
+                }
+
+
+
                 document.close(); // 关闭文档
                 showAlert("Export Successful", "Project details have been exported to PDF."); // 提示导出成功
             } catch (DocumentException | IOException e) { // 捕获异常
